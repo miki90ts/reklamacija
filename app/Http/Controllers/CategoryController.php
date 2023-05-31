@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryPatchRequest;
+use App\Http\Requests\CategoryStoreRequest;
 
 class CategoryController extends Controller
 {
@@ -12,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return inertia()->render('Category/Index', [
+            'categories' => CategoryResource::collection(Category::all()),
+        ]);
     }
 
     /**
@@ -20,15 +25,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+       return inertia()->render('Category/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        $category = Category::make($request->validated());
+
+        $category->save();
+
+        return redirect(route('categories'));
     }
 
     /**
@@ -44,15 +53,19 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return inertia()->render('Category/Edit', [
+            'category' => new CategoryResource(Category::findOrFail($category->id)),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryPatchRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+    
+        return redirect(route('categories'));
     }
 
     /**

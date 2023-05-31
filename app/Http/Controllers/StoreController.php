@@ -12,7 +12,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        return inertia()->render('Store/Index', [
+            'categories' => StoreResource::collection(Store::all()),
+        ]);
     }
 
     /**
@@ -20,7 +22,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return inertia()->render('Store/Create');
     }
 
     /**
