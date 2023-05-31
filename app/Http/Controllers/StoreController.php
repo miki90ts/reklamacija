@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Http\Resources\StoreResource;
+use App\Http\Requests\StorePatchRequest;
+use App\Http\Requests\StoreStoreRequest;
 
 class StoreController extends Controller
 {
@@ -13,7 +16,7 @@ class StoreController extends Controller
     public function index()
     {
         return inertia()->render('Store/Index', [
-            'categories' => StoreResource::collection(Store::all()),
+            'stores' => StoreResource::collection(Store::all()),
         ]);
     }
 
@@ -28,9 +31,16 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreStoreRequest $request)
     {
-        //
+        $store = Store::make($request->validated());
+
+        $store->save();
+
+        return redirect(route('stores'))->with('message', [
+            'body' => 'Prodavnica kreirana',
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -46,15 +56,22 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        return inertia()->render('Store/Edit', [
+            'store' => new StoreResource(Store::findOrFail($store->id)),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Store $store)
+    public function update(StorePatchRequest $request, Store $store)
     {
-        //
+        $store->update($request->validated());
+    
+        return redirect(route('stores'))->with('message', [
+            'body' => 'Prodavnica izmenjena',
+            'type' => 'success'
+        ]);
     }
 
     /**

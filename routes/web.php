@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories/{category}', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update'); 
 
-    Route::get('/store', [StoreController::class, 'index'])->name('store');
+    Route::get('/store', [StoreController::class, 'index'])->name('stores');
     Route::post('/store/store', [StoreController::class, 'store'])->name('store.store');
     Route::get('/store/create', [StoreController::class, 'create'])->name('store.create');
     Route::get('/store/{store}', [StoreController::class, 'edit'])->name('store.edit');

@@ -8,21 +8,21 @@ import BackLink from "@/Components/BackLink.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
-    category: Object,
+    store: Object,
 });
 
 const form = useForm({
-    title: props.category.data.title,
+    title: props.store.data.title,
 });
 </script>
 
 <template>
-    <Head title="Category-Edit" />
+    <Head title="Store-Edit" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Izmena kategorije
+                Izmena Prodavnice
             </h2>
         </template>
 
@@ -35,10 +35,7 @@ const form = useForm({
                                 <form
                                     @submit.prevent="
                                         form.patch(
-                                            route(
-                                                'categories.update',
-                                                category.data
-                                            )
+                                            route('store.update', store.data)
                                         )
                                     "
                                     class="mt-6 space-y-6"
@@ -63,7 +60,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('categories')">
+                                        <BackLink :href="route('stores')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

@@ -1,24 +1,25 @@
 <script setup>
-
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import BackLink from "@/Components/BackLink.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    title: ''
+    title: "",
 });
-
 </script>
 
 <template>
-    <Head title="Categories-Edit" />
+    <Head title="Category-Add" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Unos kategorije</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Unos kategorije
+            </h2>
         </template>
 
         <div class="py-12">
@@ -27,7 +28,12 @@ const form = useForm({
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <div class="overflow-x-auto">
-                               <form @submit.prevent="form.post(route('categories.store'))" class="mt-6 space-y-6">
+                                <form
+                                    @submit.prevent="
+                                        form.post(route('categories.store'))
+                                    "
+                                    class="mt-6 space-y-6"
+                                >
                                     <div>
                                         <InputLabel for="title" value="Naziv" />
 
@@ -41,11 +47,22 @@ const form = useForm({
                                             autocomplete="title"
                                         />
 
-                                        <InputError class="mt-2" :message="form.errors.title" />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.title"
+                                        />
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <PrimaryButton :disabled="form.processing">Sačuvaj</PrimaryButton>
+                                        <BackLink :href="route('categories')">
+                                            Nazad
+                                        </BackLink>
+                                        <div class="flex items-center gap-4">
+                                            <PrimaryButton
+                                                :disabled="form.processing"
+                                                >Sačuvaj
+                                            </PrimaryButton>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

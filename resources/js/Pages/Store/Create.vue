@@ -3,26 +3,22 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
 import BackLink from "@/Components/BackLink.vue";
+import TextInput from "@/Components/TextInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
-const props = defineProps({
-    category: Object,
-});
-
 const form = useForm({
-    title: props.category.data.title,
+    title: "",
 });
 </script>
 
 <template>
-    <Head title="Category-Edit" />
+    <Head title="Store-Add" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Izmena kategorije
+                Unos prodavnice
             </h2>
         </template>
 
@@ -34,12 +30,7 @@ const form = useForm({
                             <div class="overflow-x-auto">
                                 <form
                                     @submit.prevent="
-                                        form.patch(
-                                            route(
-                                                'categories.update',
-                                                category.data
-                                            )
-                                        )
+                                        form.post(route('store.store'))
                                     "
                                     class="mt-6 space-y-6"
                                 >
@@ -63,7 +54,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('categories')">
+                                        <BackLink :href="route('stores')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">
