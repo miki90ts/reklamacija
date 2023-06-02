@@ -44,6 +44,12 @@ const showingNavigationDropdown = ref(false);
                                     Kategorije
                                 </NavLink>
                                 <NavLink
+                                    :href="route('products')"
+                                    :active="route().current('products')"
+                                >
+                                    Produkti
+                                </NavLink>
+                                <NavLink
                                     :href="route('stores')"
                                     :active="route().current('stores')"
                                 >

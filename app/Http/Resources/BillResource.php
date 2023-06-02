@@ -21,9 +21,6 @@ class BillResource extends JsonResource
             'photo' => $this->photo,
             'store' => StoreResource::make($this->whenLoaded('store')),
             'product' => ProductResource::make($this->whenLoaded('product')),
-            // 'post' => PostResource::make($this->whenLoaded('post')),
-            // 'solution' => PostResource::make($this->whenLoaded('solution')),
-            // 'latest_post' => PostResource::make($this->whenLoaded('latestPost')),
             // 'participants' => PublicUserResource::collection($this->whenLoaded('participants'))
         ];
     }

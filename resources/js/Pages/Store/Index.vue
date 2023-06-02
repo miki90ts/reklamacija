@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-
+import DangerButton from '@/Components/DangerButton.vue';
+import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
@@ -8,6 +9,13 @@ defineProps({
         type: Object,
     },
 });
+
+const form = useForm({});
+
+const deleteStore = (store) => {
+    store.processing = true;
+    form.delete(route('store.destroy',store));
+};
 </script>
 
 <template>
@@ -44,7 +52,6 @@ defineProps({
                                                 Naziv
                                             </th>
                                             <th class="py-2 px-4 border-b">
-                                                Izmena
                                             </th>
                                         </tr>
                                     </thead>
@@ -77,6 +84,15 @@ defineProps({
                                                 >
                                                     Edit
                                                 </Link>
+
+                                                <DangerButton
+                                                    class="ml-3"
+                                                    @click="deleteStore(store)"
+                                                    :class="{ 'opacity-25': store.processing }"
+                                                    :disabled="store.processing"
+                                                >
+                                                    Delete
+                                                </DangerButton>
                                             </td>
                                         </tr>
                                     </tbody>

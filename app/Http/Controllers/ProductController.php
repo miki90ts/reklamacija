@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\{Product,Category};
+use App\Http\Resources\{ProductResource,CategoryResource};
 
 class ProductController extends Controller
 {
@@ -12,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return inertia()->render('Product/Index', [
+            'products' => ProductResource::collection(Product::with(['category'])->get()),
+        ]);
     }
 
     /**
@@ -20,7 +23,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return inertia()->render('Product/Create',[
+            'categories' => CategoryResource::collection(Category::all()),
+        ]);
     }
 
     /**
@@ -28,7 +33,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $product = new Product(['title' => $request->title]);
+
+        // $category = Category::find($request->category_id);
+ 
+        // $category->products()->save($product);
+
+        $product = Category::find($request->category_id)
+        ->products()
+        ->create(['title' => $request->title]);
+       
+        return redirect(route('products'))->with('message', [
+            'body' => 'Produkt kreiran',
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -60,6 +78,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect(route('products'))->with('message', [
+            'body' => 'Produkt izbrisan',
+            'type' => 'success'
+        ]);
     }
 }
