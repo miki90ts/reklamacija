@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return inertia()->render('Category/Index', [
-            'categories' => CategoryResource::collection(Category::all()),
+            'categories' => CategoryResource::collection(Category::paginate(10)),
         ]);
     }
 

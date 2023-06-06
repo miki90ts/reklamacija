@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Product,Category};
+use App\Http\Requests\{ProductPatchRequest,ProductStoreRequest};
 use App\Http\Resources\{ProductResource,CategoryResource};
 
 class ProductController extends Controller
@@ -14,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return inertia()->render('Product/Index', [
-            'products' => ProductResource::collection(Product::with(['category'])->get()),
+            'products' => ProductResource::collection(Product::with(['category'])->paginate(10)),
         ]);
     }
 
@@ -31,20 +32,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        // $product = new Product(['title' => $request->title]);
-
-        // $category = Category::find($request->category_id);
- 
-        // $category->products()->save($product);
-
-        $product = Category::find($request->category_id)
-        ->products()
-        ->create(['title' => $request->title]);
+        $validatedData = $request->validated();
+    
+        $product = Category::find($validatedData['category_id'])
+            ->products()
+            ->create(['title' => $validatedData['title']]);
        
         return redirect(route('products'))->with('message', [
-            'body' => 'Produkt kreiran',
+            'body' => 'Proizvod kreiran',
             'type' => 'success'
         ]);
     }
@@ -62,15 +59,29 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return inertia()->render('Product/Edit', [
+            'product' => new ProductResource(Product::with(['category'])->findOrFail($product->id)),
+            'categories' => CategoryResource::collection(Category::all()),
+            //'product' => $product, jedan kveri manje implicit modal biding 
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductPatchRequest $request, Product $product)
     {
-        //
+        $validatedData = $request->validated();
+    
+        $product->update([
+            'title' => $validatedData['title'],
+            'category_id' => $validatedData['category_id']
+        ]);
+       
+        return redirect(route('products'))->with('message', [
+            'body' => 'Proizvod izmenjen',
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -81,7 +92,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect(route('products'))->with('message', [
-            'body' => 'Produkt izbrisan',
+            'body' => 'Proizvod izbrisan',
             'type' => 'success'
         ]);
     }

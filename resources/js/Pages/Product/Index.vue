@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import DangerButton from '@/Components/DangerButton.vue';
-import { useForm } from '@inertiajs/vue3';
+import DangerButton from "@/Components/DangerButton.vue";
+import Pagination from "@/Components/Pagination.vue";
+import { useForm } from "@inertiajs/vue3";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
@@ -14,7 +15,7 @@ const form = useForm({});
 
 const deleteProduct = (product) => {
     product.processing = true;
-    form.delete(route('products.destroy',product));
+    form.delete(route("products.destroy", product));
 };
 </script>
 
@@ -24,10 +25,10 @@ const deleteProduct = (product) => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Produkti
+                Proizvodi
             </h2>
         </template>
-      
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -54,9 +55,7 @@ const deleteProduct = (product) => {
                                             <th class="py-2 px-4 border-b">
                                                 Kategorija
                                             </th>
-                                            <th class="py-2 px-4 border-b">
-                                                
-                                            </th>
+                                            <th class="py-2 px-4 border-b"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,7 +68,14 @@ const deleteProduct = (product) => {
                                             <td
                                                 class="py-2 px-4 border-b text-center"
                                             >
-                                                {{ index + 1 }}.
+                                                {{
+                                                    (products.meta
+                                                        .current_page -
+                                                        1) *
+                                                        products.meta.per_page +
+                                                    index +
+                                                    1
+                                                }}.
                                             </td>
                                             <td
                                                 class="py-2 px-4 border-b text-center"
@@ -96,9 +102,16 @@ const deleteProduct = (product) => {
 
                                                 <DangerButton
                                                     class="ml-3"
-                                                    @click="deleteProduct(product)"
-                                                    :class="{ 'opacity-25': product.processing }"
-                                                    :disabled="product.processing"
+                                                    @click="
+                                                        deleteProduct(product)
+                                                    "
+                                                    :class="{
+                                                        'opacity-25':
+                                                            product.processing,
+                                                    }"
+                                                    :disabled="
+                                                        product.processing
+                                                    "
                                                 >
                                                     Delete
                                                 </DangerButton>
@@ -106,6 +119,8 @@ const deleteProduct = (product) => {
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <Pagination :pagination="products.meta" />
                             </div>
                         </div>
                     </div>

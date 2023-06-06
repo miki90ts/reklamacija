@@ -16,7 +16,7 @@ class StoreController extends Controller
     public function index()
     {
         return inertia()->render('Store/Index', [
-            'stores' => StoreResource::collection(Store::all()),
+            'stores' => StoreResource::collection(Store::paginate(10)),
         ]);
     }
 
@@ -33,9 +33,7 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        $store = Store::make($request->validated());
-
-        $store->save();
+        Store::create($request->validated());
 
         return redirect(route('stores'))->with('message', [
             'body' => 'Prodavnica kreirana',

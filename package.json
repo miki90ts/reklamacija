@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@vuepic/vue-datepicker": "^5.2.0",
         "vue-toastification": "^2.0.0-rc.5"
     }
 }

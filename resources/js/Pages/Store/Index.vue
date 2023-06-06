@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import DangerButton from '@/Components/DangerButton.vue';
-import { useForm } from '@inertiajs/vue3';
+import DangerButton from "@/Components/DangerButton.vue";
+import Pagination from "@/Components/Pagination.vue";
+import { useForm } from "@inertiajs/vue3";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
@@ -14,7 +15,7 @@ const form = useForm({});
 
 const deleteStore = (store) => {
     store.processing = true;
-    form.delete(route('store.destroy',store));
+    form.delete(route("store.destroy", store));
 };
 </script>
 
@@ -51,8 +52,7 @@ const deleteStore = (store) => {
                                             <th class="py-2 px-4 border-b">
                                                 Naziv
                                             </th>
-                                            <th class="py-2 px-4 border-b">
-                                            </th>
+                                            <th class="py-2 px-4 border-b"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,7 +65,13 @@ const deleteStore = (store) => {
                                             <td
                                                 class="py-2 px-4 border-b text-center"
                                             >
-                                                {{ index + 1 }}.
+                                                {{
+                                                    (stores.meta.current_page -
+                                                        1) *
+                                                        stores.meta.per_page +
+                                                    index +
+                                                    1
+                                                }}.
                                             </td>
                                             <td
                                                 class="py-2 px-4 border-b text-center"
@@ -88,7 +94,10 @@ const deleteStore = (store) => {
                                                 <DangerButton
                                                     class="ml-3"
                                                     @click="deleteStore(store)"
-                                                    :class="{ 'opacity-25': store.processing }"
+                                                    :class="{
+                                                        'opacity-25':
+                                                            store.processing,
+                                                    }"
                                                     :disabled="store.processing"
                                                 >
                                                     Delete
@@ -97,6 +106,8 @@ const deleteStore = (store) => {
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <Pagination :pagination="stores.meta" />
                             </div>
                         </div>
                     </div>

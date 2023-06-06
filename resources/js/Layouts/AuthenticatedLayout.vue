@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('bills')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -32,10 +32,10 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('bills')"
+                                    :active="route().current('bills')"
                                 >
-                                    Dashboard
+                                    Računi
                                 </NavLink>
                                 <NavLink
                                     :href="route('categories')"
@@ -54,6 +54,14 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('stores')"
                                 >
                                     Prodavnice
+                                </NavLink>
+                                <NavLink
+                                    :href="route('warranty_lengths')"
+                                    :active="
+                                        route().current('warranty_lengths')
+                                    "
+                                >
+                                    Dužina garancije
                                 </NavLink>
                             </div>
                         </div>
@@ -157,10 +165,10 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :href="route('bills')"
+                            :active="route().current('bills')"
                         >
-                            Dashboard
+                            Računi
                         </ResponsiveNavLink>
                     </div>
 

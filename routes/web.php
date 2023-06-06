@@ -8,6 +8,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WarrantyLengthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [BillController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/bills', [BillController::class, 'index'])->name('bills');
+    Route::post('/bills/store', [BillController::class, 'store'])->name('bills.store');
+    Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
+    Route::get('/bills/{category}', [BillController::class, 'edit'])->name('bills.edit');
+    Route::patch('/bills/{category}', [BillController::class, 'update'])->name('bills.update'); 
+    Route::delete('/bills/{category}', [BillController::class, 'destroy'])->name('bills.destroy'); 
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
@@ -56,6 +62,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/{product}', [ProductController::class, 'edit'])->name('products.edit');
     Route::patch('/products/{product}', [ProductController::class, 'update'])->name('products.update'); 
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy'); 
+    
+    Route::get('/warranty-lengths', [WarrantyLengthController::class, 'index'])->name('warranty_lengths');
+    Route::post('/warranty-lengths/store', [WarrantyLengthController::class, 'store'])->name('warranty_lengths.store');
+    Route::get('/warranty-lengths/create', [WarrantyLengthController::class, 'create'])->name('warranty_lengths.create');
+    Route::get('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'edit'])->name('warranty_lengths.edit');
+    Route::patch('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'update'])->name('warranty_lengths.update'); 
+    Route::delete('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'destroy'])->name('warranty_lengths.destroy'); 
 });
 
 require __DIR__.'/auth.php';

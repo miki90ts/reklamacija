@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->restrictOnDelete();
             $table->foreignId('store_id')->constrained()->restrictOnDelete();
+            $table->foreignId('warranty_length_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->date('purchased_at');
             $table->string('photo');
             $table->timestamps();

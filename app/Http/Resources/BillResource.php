@@ -17,11 +17,10 @@ class BillResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'purchased_at' => Carbon::parse($this->purchased_at)->addYears(2)->toDateString(),
-            'photo' => $this->photo,
+            'purchased_at' => Carbon::parse($this->purchased_at)->addMonths($this->warrantyLength->months)->toDateString(),
+            'photo' => asset('storage/bills/'.$this->photo),
             'store' => StoreResource::make($this->whenLoaded('store')),
             'product' => ProductResource::make($this->whenLoaded('product')),
-            // 'participants' => PublicUserResource::collection($this->whenLoaded('participants'))
         ];
     }
 }

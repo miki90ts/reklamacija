@@ -20,7 +20,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('products.store'));
+    form.post(route("products.store"));
 };
 </script>
 
@@ -30,10 +30,10 @@ const submit = () => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Unos Produkta
+                Unos Proizvoda
             </h2>
         </template>
-     
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -48,7 +48,7 @@ const submit = () => {
                                         <InputLabel for="title" value="Naziv" />
 
                                         <TextInput
-                                            id="name"
+                                            id="title"
                                             type="text"
                                             class="mt-1 block w-full"
                                             v-model="form.title"
@@ -64,18 +64,21 @@ const submit = () => {
                                     </div>
 
                                     <div>
-                                        <InputLabel for="category_id" value="Kategorija" />
+                                        <InputLabel
+                                            for="category_id"
+                                            value="Kategorija"
+                                        />
 
-                                        <SelectInput 
+                                        <SelectInput
                                             v-model="form.category_id"
                                             keyIndex="id"
                                             valueIndex="id"
                                             labelIndex="title"
                                             :data="categories.data"
-                                            :showChoose=false
+                                            :showChoose="false"
                                             id="category_id"
                                             class="mt-1 block w-full"
-                                            required 
+                                            required
                                         ></SelectInput>
 
                                         <InputError

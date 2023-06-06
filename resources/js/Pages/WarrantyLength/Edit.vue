@@ -4,28 +4,28 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import SelectInput from "@/Components/SelectInput.vue";
 import BackLink from "@/Components/BackLink.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
-    product: Object,
-    categories: Object,
+    warrantyLength: {
+        type: Object,
+    },
 });
 
 const form = useForm({
-    title: props.product.data.title,
-    category_id: props.product.data.category.id.toString(),
+    title: props.warrantyLength.data.title,
+    months: props.warrantyLength.data.months.toString(),
 });
 </script>
 
 <template>
-    <Head title="Product-Edit" />
+    <Head title="Warranty lengths-Edit" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Izmena Proizvoda
+                Izmena dužine garancije
             </h2>
         </template>
 
@@ -39,8 +39,8 @@ const form = useForm({
                                     @submit.prevent="
                                         form.patch(
                                             route(
-                                                'products.update',
-                                                product.data
+                                                'warranty_lengths.update',
+                                                warrantyLength.data
                                             )
                                         )
                                     "
@@ -50,7 +50,7 @@ const form = useForm({
                                         <InputLabel for="title" value="Naziv" />
 
                                         <TextInput
-                                            id="name"
+                                            id="title"
                                             type="text"
                                             class="mt-1 block w-full"
                                             v-model="form.title"
@@ -67,30 +67,28 @@ const form = useForm({
 
                                     <div>
                                         <InputLabel
-                                            for="category_id"
-                                            value="Kategorija"
+                                            for="months"
+                                            value="Trajanje (meseci)"
                                         />
 
-                                        <SelectInput
-                                            v-model="form.category_id"
-                                            keyIndex="id"
-                                            valueIndex="id"
-                                            labelIndex="title"
-                                            :data="categories.data"
-                                            :showChoose="false"
-                                            id="category_id"
+                                        <TextInput
+                                            id="months"
+                                            type="text"
                                             class="mt-1 block w-full"
+                                            v-model="form.months"
                                             required
-                                        ></SelectInput>
+                                        />
 
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.category_id"
+                                            :message="form.errors.months"
                                         />
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('products')">
+                                        <BackLink
+                                            :href="route('warranty_lengths')"
+                                        >
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">
