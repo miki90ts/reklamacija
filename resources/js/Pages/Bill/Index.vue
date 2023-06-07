@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, Link, usePage } from "@inertiajs/vue3";
+import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     bills: Object,
@@ -11,6 +11,13 @@ const props = defineProps({
 function openImageInNewTab(imageUrl) {
     window.open(imageUrl, "_blank");
 }
+
+const form = useForm({});
+
+const deleteBill = (bill) => {
+    bill.processing = true;
+    form.delete(route("bills.destroy", bill));
+};
 </script>
 
 <template>
@@ -122,11 +129,15 @@ function openImageInNewTab(imageUrl) {
                                                 class="py-2 px-4 border-b text-center"
                                             >
                                                 <div class="flex">
-                                                    <button
-                                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                    <Link
+                                                        :href="`${route(
+                                                            'bills.edit',
+                                                            bill
+                                                        )}`"
+                                                        class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                     >
                                                         Edit
-                                                    </button>
+                                                    </Link>
 
                                                     <DangerButton
                                                         class="ml-3"

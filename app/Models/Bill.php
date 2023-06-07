@@ -11,6 +11,9 @@ class Bill extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
+        'store_id',
+        'warranty_length_id',
         'purchased_at',
         'photo'
     ];

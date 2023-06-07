@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/bills', [BillController::class, 'index'])->name('bills');
     Route::post('/bills/store', [BillController::class, 'store'])->name('bills.store');
     Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
-    Route::get('/bills/{category}', [BillController::class, 'edit'])->name('bills.edit');
-    Route::patch('/bills/{category}', [BillController::class, 'update'])->name('bills.update'); 
-    Route::delete('/bills/{category}', [BillController::class, 'destroy'])->name('bills.destroy'); 
+    Route::get('/bills/{bill}', [BillController::class, 'edit'])->name('bills.edit');
+    Route::patch('/bills/{bill}', [BillController::class, 'update'])->name('bills.update'); 
+    Route::delete('/bills/{bill}', [BillController::class, 'destroy'])->name('bills.destroy'); 
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
