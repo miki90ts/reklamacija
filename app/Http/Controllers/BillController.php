@@ -11,6 +11,14 @@ use App\Http\Resources\{BillResource,StoreResource,CategoryResource,ProductResou
 
 class BillController extends Controller
 {
+    /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Bill::class, 'bill');
+    }
+
     protected const BILLS_PER_PAGE = 10;
     /**
      * Display a listing of the resource.

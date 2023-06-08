@@ -37,32 +37,34 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Računi
                                 </NavLink>
-                                <NavLink
-                                    :href="route('categories')"
-                                    :active="route().current('categories')"
-                                >
-                                    Kategorije
-                                </NavLink>
-                                <NavLink
-                                    :href="route('products')"
-                                    :active="route().current('products')"
-                                >
-                                    Produkti
-                                </NavLink>
-                                <NavLink
-                                    :href="route('stores')"
-                                    :active="route().current('stores')"
-                                >
-                                    Prodavnice
-                                </NavLink>
-                                <NavLink
-                                    :href="route('warranty_lengths')"
-                                    :active="
-                                        route().current('warranty_lengths')
-                                    "
-                                >
-                                    Dužina garancije
-                                </NavLink>
+                                <template v-if="$page.props.auth.user.admin">
+                                    <NavLink
+                                        :href="route('categories')"
+                                        :active="route().current('categories')"
+                                    >
+                                        Kategorije
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('products')"
+                                        :active="route().current('products')"
+                                    >
+                                        Produkti
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('stores')"
+                                        :active="route().current('stores')"
+                                    >
+                                        Prodavnice
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('warranty_lengths')"
+                                        :active="
+                                            route().current('warranty_lengths')
+                                        "
+                                    >
+                                        Dužina garancije
+                                    </NavLink>
+                                </template>
                             </div>
                         </div>
 
