@@ -19,6 +19,7 @@ class BillResource extends JsonResource
             'id' => $this->id,
             'purchased_at' => Carbon::parse($this->purchased_at)->addMonths($this->warrantyLength->months)->toDateString(),
             'photo' => asset('storage/bills/'.$this->photo),
+            'price' => $this->price,
             'store' => StoreResource::make($this->whenLoaded('store')),
             'product' => ProductResource::make($this->whenLoaded('product')),
         ];

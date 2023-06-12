@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import BackLink from "@/Components/BackLink.vue";
 import TextInput from "@/Components/TextInput.vue";
+import TextAreaInput from "@/Components/TextAreaInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -23,6 +24,8 @@ function submit(bill) {
         photo: form.photo,
         purchased_at: form.purchased_at,
         warranty_length_id: form.warranty_length_id,
+        price: form.price,
+        note: form.note,
     });
 }
 
@@ -61,6 +64,8 @@ const form = useForm({
     photo: "",
     purchased_at: props.bill.purchased_at,
     warranty_length_id: props.bill.warranty_length_id.toString(),
+    price: props.bill.price,
+    note: props.bill.note ?? "",
 });
 
 const filteredProducts = computed(() => {
@@ -84,7 +89,7 @@ function setFilteredProducts(data) {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Unos Proizvoda
+                Izmena Proizvoda
             </h2>
         </template>
 
@@ -231,6 +236,41 @@ function setFilteredProducts(data) {
                                             :message="
                                                 form.errors.warranty_length_id
                                             "
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="price" value="Cena" />
+
+                                        <TextInput
+                                            id="price"
+                                            type="number"
+                                            class="mt-1 block w-full"
+                                            v-model="form.price"
+                                            step="0.01"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.price"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="note"
+                                            value="Beleška"
+                                        />
+
+                                        <TextAreaInput
+                                            id="note"
+                                            class="mt-1 block w-full"
+                                            v-model="form.note"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.note"
                                         />
                                     </div>
 

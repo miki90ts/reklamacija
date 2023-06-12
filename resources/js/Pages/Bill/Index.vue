@@ -3,9 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+import DonutChart from "@/Components/DonutChart.vue";
 
 const props = defineProps({
     bills: Object,
+    price: Array,
 });
 
 function openImageInNewTab(imageUrl) {
@@ -28,6 +32,9 @@ const deleteBill = (bill) => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Računi
             </h2>
+            <div>
+                <DonutChart :price="price" />
+            </div>
         </template>
 
         <div class="py-12">
@@ -62,6 +69,9 @@ const deleteBill = (bill) => {
                                             </th>
                                             <th class="py-2 px-4 border-b">
                                                 Ističe garancija
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
+                                                Cena
                                             </th>
                                             <th class="py-2 px-4 border-b">
                                                 Slika
@@ -101,6 +111,11 @@ const deleteBill = (bill) => {
                                                 class="py-2 px-4 border-b text-center"
                                             >
                                                 {{ bill.purchased_at }}
+                                            </td>
+                                            <td
+                                                class="py-2 px-4 border-b text-center"
+                                            >
+                                                {{ bill.price }}
                                             </td>
                                             <td
                                                 class="py-2 px-4 border-b text-center"

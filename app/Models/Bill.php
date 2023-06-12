@@ -15,7 +15,9 @@ class Bill extends Model
         'store_id',
         'warranty_length_id',
         'purchased_at',
-        'photo'
+        'photo',
+        'price',
+        'note'
     ];
 
     protected $dates = ['purchased_at'];

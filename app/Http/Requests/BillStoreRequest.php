@@ -27,6 +27,8 @@ class BillStoreRequest extends FormRequest
             'warranty_length_id' => ['required'],
             'purchased_at' => ['required', 'date'],
             'photo' => ['required','image'],
+            'price' => ['required','decimal:0,2'],
+            'note' => ['nullable', 'string']
         ];
     }
 }

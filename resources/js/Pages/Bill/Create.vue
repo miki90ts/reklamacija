@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import BackLink from "@/Components/BackLink.vue";
 import TextInput from "@/Components/TextInput.vue";
+import TextAreaInput from "@/Components/TextAreaInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -44,6 +45,8 @@ const form = useForm({
     photo: "",
     purchased_at: "",
     warranty_length_id: "5",
+    price: "",
+    note: "",
 });
 
 const submit = () => {
@@ -218,6 +221,41 @@ function setFilteredProducts(data) {
                                             :message="
                                                 form.errors.warranty_length_id
                                             "
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="price" value="Cena" />
+
+                                        <TextInput
+                                            id="price"
+                                            type="number"
+                                            class="mt-1 block w-full"
+                                            v-model="form.price"
+                                            step="0.01"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.price"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="note"
+                                            value="Beleška"
+                                        />
+
+                                        <TextAreaInput
+                                            id="note"
+                                            class="mt-1 block w-full"
+                                            v-model="form.note"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.note"
                                         />
                                     </div>
 

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Requests\{BillStoreRequest,BillPatchRequest};
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\{BillStoreRequest,BillPatchRequest};
 use App\Models\{Bill,Store,Category,Product,WarrantyLength};
 use App\Http\Resources\{BillResource,StoreResource,CategoryResource,ProductResource,WarrantyLengthResource};
 
@@ -25,6 +26,11 @@ class BillController extends Controller
      */
     public function index()
     {
+        $pricesByCategory = Bill::join('products', 'bills.product_id', '=', 'products.id')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->groupBy('categories.id')
+        ->select('categories.title as category', DB::raw('SUM(bills.price) as total_price'))
+        ->get();
         return inertia()->render('Bill/Index', [
            
             'bills' => BillResource::collection(
@@ -33,6 +39,7 @@ class BillController extends Controller
                     ->oldest()
                     ->paginate(self::BILLS_PER_PAGE)
             ),
+            'price' => $pricesByCategory
         ]);
     }
 
@@ -66,6 +73,8 @@ class BillController extends Controller
         $bill->purchased_at = Carbon::parse($validatedData['purchased_at'])->format('Y-m-d');
         $bill->photo = basename($photo);
         $bill->warranty_length_id = $validatedData['warranty_length_id'];
+        $bill->price = $validatedData['price'];
+        $bill->note = $validatedData['note'];
         
         $bill->save();
 
@@ -104,7 +113,7 @@ class BillController extends Controller
     public function update(BillPatchRequest $request, Bill $bill)
     {   
         $validatedData = $request->validated();
-
+      
         $photoName = $bill->photo;
 
         if($validatedData['photo']){
@@ -119,6 +128,8 @@ class BillController extends Controller
             'purchased_at' => Carbon::parse($validatedData['purchased_at'])->format('Y-m-d'),
             'photo' => $photoName,
             'warranty_length_id' => $validatedData['warranty_length_id'],
+            'price' => $validatedData['price'],
+            'note' => $validatedData['note'],
         ]);
 
         return redirect(route('bills'))->with('message', [

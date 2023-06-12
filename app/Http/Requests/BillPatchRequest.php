@@ -27,6 +27,8 @@ class BillPatchRequest extends FormRequest
             'warranty_length_id' => ['required'],
             'purchased_at' => ['required', 'date'],
             'photo' => ['nullable','image'],
+            'price' => ['required','decimal:0,2'],
+            'note' => ['nullable', 'string']
         ];
     }
 }
