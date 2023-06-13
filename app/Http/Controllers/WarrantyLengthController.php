@@ -11,6 +11,13 @@ use App\Http\Requests\WarrantyLengthStoreRequest;
 class WarrantyLengthController extends Controller
 {
     /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(WarrantyLength::class, 'warrantyLength');
+    }
+    /**
      * Display a listing of the resource.
      */
     public function index()

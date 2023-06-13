@@ -3,24 +3,88 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
-import SelectInput from "@/Components/SelectInput.vue";
 import BackLink from "@/Components/BackLink.vue";
+import TextInput from "@/Components/TextInput.vue";
+import TextAreaInput from "@/Components/TextAreaInput.vue";
+import SelectInput from "@/Components/SelectInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
+import { ref, computed } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+
+import { router } from "@inertiajs/vue3";
+
+function submit(bill) {
+    router.post(route("bills.update", bill), {
+        _method: "patch",
+        category_id: form.category_id,
+        product_id: form.product_id,
+        store_id: form.store_id,
+        photo: form.photo,
+        purchased_at: form.purchased_at,
+        warranty_length_id: form.warranty_length_id,
+        price: form.price,
+        note: form.note,
+    });
+}
+
+const date = ref();
+
+const format = (date) => {
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+};
+
 const props = defineProps({
-    product: Object,
-    categories: Object,
+    bill: {
+        type: Object,
+    },
+    categories: {
+        type: Object,
+    },
+    stores: {
+        type: Object,
+    },
+    products: {
+        type: Object,
+    },
+    warrantyLengths: {
+        type: Object,
+    },
 });
 
 const form = useForm({
-    title: props.product.data.title,
-    category_id: props.product.data.category.id.toString(),
+    category_id: props.bill.product.category.id.toString(),
+    product_id: props.bill.product_id.toString(),
+    store_id: props.bill.store_id.toString(),
+    photo: "",
+    purchased_at: props.bill.purchased_at,
+    warranty_length_id: props.bill.warranty_length_id.toString(),
+    price: props.bill.price,
+    note: props.bill.note ?? "",
 });
+
+const filteredProducts = computed(() => {
+    if (form.category_id) {
+        return Object.values(props.products.data).filter(
+            (product) => product.category_id === Number(form.category_id)
+        );
+    }
+
+    return Object.values(props.products.data);
+});
+
+function setFilteredProducts(data) {
+    form.category_id = data;
+}
 </script>
 
 <template>
-    <Head title="Product-Edit" />
+    <Head title="Product-Add" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -36,35 +100,9 @@ const form = useForm({
                         <div class="container mx-auto">
                             <div class="overflow-x-auto">
                                 <form
-                                    @submit.prevent="
-                                        form.patch(
-                                            route(
-                                                'products.update',
-                                                product.data
-                                            )
-                                        )
-                                    "
+                                    @submit.prevent="submit(bill)"
                                     class="mt-6 space-y-6"
                                 >
-                                    <div>
-                                        <InputLabel for="title" value="Naziv" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            class="mt-1 block w-full"
-                                            v-model="form.title"
-                                            required
-                                            autofocus
-                                            autocomplete="title"
-                                        />
-
-                                        <InputError
-                                            class="mt-2"
-                                            :message="form.errors.title"
-                                        />
-                                    </div>
-
                                     <div>
                                         <InputLabel
                                             for="category_id"
@@ -77,10 +115,13 @@ const form = useForm({
                                             valueIndex="id"
                                             labelIndex="title"
                                             :data="categories.data"
-                                            :showChoose="false"
+                                            :showChoose="true"
                                             id="category_id"
                                             class="mt-1 block w-full"
                                             required
+                                            @update:modelValue="
+                                                setFilteredProducts
+                                            "
                                         ></SelectInput>
 
                                         <InputError
@@ -89,8 +130,152 @@ const form = useForm({
                                         />
                                     </div>
 
+                                    <div>
+                                        <InputLabel
+                                            for="product_id"
+                                            value="Proizvod"
+                                        />
+
+                                        <SelectInput
+                                            v-model="form.product_id"
+                                            keyIndex="id"
+                                            valueIndex="id"
+                                            labelIndex="title"
+                                            :data="filteredProducts"
+                                            :showChoose="true"
+                                            id="product_id"
+                                            class="mt-1 block w-full"
+                                            required
+                                        ></SelectInput>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.product_id"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel
+                                            for="store_id"
+                                            value="Prodavnica"
+                                        />
+
+                                        <SelectInput
+                                            v-model="form.store_id"
+                                            keyIndex="id"
+                                            valueIndex="id"
+                                            labelIndex="title"
+                                            :data="stores.data"
+                                            :showChoose="true"
+                                            id="store_id"
+                                            class="mt-1 block w-full"
+                                            required
+                                        ></SelectInput>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.store_id"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="photo"
+                                            value="Prodavnica"
+                                        />
+
+                                        <input
+                                            type="file"
+                                            @input="
+                                                form.photo =
+                                                    $event.target.files[0]
+                                            "
+                                            accept="image/*"
+                                            id="photo"
+                                        />
+                                        <progress
+                                            v-if="form.progress"
+                                            :value="form.progress.percentage"
+                                            max="100"
+                                        >
+                                            {{ form.progress.percentage }}%
+                                        </progress>
+                                    </div>
+
+                                    <div>
+                                        <InputLabel value="Datum kupovine" />
+
+                                        <VueDatePicker
+                                            v-model="form.purchased_at"
+                                            auto-apply
+                                            :enable-time-picker="false"
+                                            :format="format"
+                                            :max-date="new Date()"
+                                            required
+                                        ></VueDatePicker>
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="warranty_length_id"
+                                            value="Dužina garancije"
+                                        />
+
+                                        <SelectInput
+                                            v-model="form.warranty_length_id"
+                                            keyIndex="id"
+                                            valueIndex="id"
+                                            labelIndex="title"
+                                            :data="warrantyLengths.data"
+                                            id="warranty_length_id"
+                                            class="mt-1 block w-full"
+                                            required
+                                        ></SelectInput>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="
+                                                form.errors.warranty_length_id
+                                            "
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="price" value="Cena" />
+
+                                        <TextInput
+                                            id="price"
+                                            type="number"
+                                            class="mt-1 block w-full"
+                                            v-model="form.price"
+                                            step="0.01"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.price"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="note"
+                                            value="Beleška"
+                                        />
+
+                                        <TextAreaInput
+                                            id="note"
+                                            class="mt-1 block w-full"
+                                            v-model="form.note"
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.note"
+                                        />
+                                    </div>
+
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('products')">
+                                        <BackLink :href="route('bills')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

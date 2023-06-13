@@ -6,7 +6,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
-
+import Footer from "@/Components/Footer.vue";
 const showingNavigationDropdown = ref(false);
 </script>
 
@@ -38,31 +38,39 @@ const showingNavigationDropdown = ref(false);
                                     Računi
                                 </NavLink>
                                 <NavLink
-                                    :href="route('categories')"
-                                    :active="route().current('categories')"
+                                    :href="route('statistics')"
+                                    :active="route().current('statistics')"
                                 >
-                                    Kategorije
+                                    Statistika
                                 </NavLink>
-                                <NavLink
-                                    :href="route('products')"
-                                    :active="route().current('products')"
-                                >
-                                    Produkti
-                                </NavLink>
-                                <NavLink
-                                    :href="route('stores')"
-                                    :active="route().current('stores')"
-                                >
-                                    Prodavnice
-                                </NavLink>
-                                <NavLink
-                                    :href="route('warranty_lengths')"
-                                    :active="
-                                        route().current('warranty_lengths')
-                                    "
-                                >
-                                    Dužina garancije
-                                </NavLink>
+                                <template v-if="$page.props.auth.user.admin">
+                                    <NavLink
+                                        :href="route('categories')"
+                                        :active="route().current('categories')"
+                                    >
+                                        Kategorije
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('products')"
+                                        :active="route().current('products')"
+                                    >
+                                        Produkti
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('stores')"
+                                        :active="route().current('stores')"
+                                    >
+                                        Prodavnice
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('warranty_lengths')"
+                                        :active="
+                                            route().current('warranty_lengths')
+                                        "
+                                    >
+                                        Dužina garancije
+                                    </NavLink>
+                                </template>
                             </div>
                         </div>
 
@@ -213,3 +221,4 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
+<Footer />

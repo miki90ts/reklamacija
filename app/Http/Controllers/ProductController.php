@@ -10,6 +10,14 @@ use App\Http\Resources\{ProductResource,CategoryResource};
 class ProductController extends Controller
 {
     /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

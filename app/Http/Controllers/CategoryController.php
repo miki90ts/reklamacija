@@ -11,6 +11,14 @@ use App\Http\Requests\CategoryStoreRequest;
 class CategoryController extends Controller
 {
     /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'category');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

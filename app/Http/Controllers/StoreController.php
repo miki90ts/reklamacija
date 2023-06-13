@@ -11,6 +11,14 @@ use App\Http\Requests\StoreStoreRequest;
 class StoreController extends Controller
 {
     /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Store::class, 'store');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
