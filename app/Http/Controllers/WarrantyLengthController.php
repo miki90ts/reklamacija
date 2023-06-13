@@ -42,7 +42,7 @@ class WarrantyLengthController extends Controller
     {
         WarrantyLength::create($request->validated());
 
-        return redirect(route('warranty_lengths'))->with('message', [
+        return redirect(route('duzina-garancije'))->with('message', [
             'body' => 'Dužina garancije kreirana',
             'type' => 'success'
         ]);
@@ -73,7 +73,7 @@ class WarrantyLengthController extends Controller
     {
         $warrantyLength->update($request->validated());
     
-        return redirect(route('warranty_lengths'))->with('message', [
+        return redirect(route('duzina-garancije'))->with('message', [
             'body' => 'Dužina garancije izmenjena',
             'type' => 'success'
         ]);
@@ -86,7 +86,7 @@ class WarrantyLengthController extends Controller
     {
         $warrantyLength->delete();
 
-        return redirect(route('warranty_lengths'))->with('message', [
+        return redirect(route('duzina-garancije'))->with('message', [
             'body' => 'Dužina garancije izbrisana',
             'type' => 'success'
         ]);

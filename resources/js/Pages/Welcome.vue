@@ -22,34 +22,43 @@ defineProps({
 
 <template>
   <Head title="Dobrodošli" />
+  <div class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-bold text-white"><span><ApplicationLogo class="w-8 h-8 text-white" /> reklamacije.rs</span></h1>
 
-  <div
-    class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
-  >
-    <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-      <Link
-        v-if="$page.props.auth.user"
-        :href="route('dashboard')"
-        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-        >Kontrolna tabla</Link
-      >
-
-      <template v-else>
+      <div v-if="canLogin" class="flex items-center">
         <Link
-          :href="route('login')"
-          class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-          >Prijava</Link
+          v-if="$page.props.auth.user"
+          :href="route('dashboard')"
+          class="font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
         >
+          Kontrolna tabla
+        </Link>
 
-        <Link
-          v-if="canRegister"
-          :href="route('register')"
-          class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-          >Registracija</Link
-        >
-      </template>
+        <template v-else>
+          <Link
+            :href="route('login')"
+            class="font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+          >
+            Prijava
+          </Link>
+
+          <Link
+            v-if="canRegister"
+            :href="route('register')"
+            class="ml-4 font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+          >
+            Registracija
+          </Link>
+        </template>
+      </div>
     </div>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+  </div>
+  <div
+    class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-blue-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
+  >
+  
+    <div class="min-h-screen flex items-center justify-center">
     <div class="max-w-lg bg-white shadow-md rounded-lg overflow-hidden">
       <div class="bg-gradient-to-r from-blue-500 to-indigo-500 py-8 px-6">
         <div class="flex items-center justify-center">

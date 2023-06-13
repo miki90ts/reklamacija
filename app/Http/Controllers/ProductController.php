@@ -48,7 +48,7 @@ class ProductController extends Controller
             ->products()
             ->create(['title' => $validatedData['title']]);
        
-        return redirect(route('products'))->with('message', [
+        return redirect(route('proizvodi'))->with('message', [
             'body' => 'Proizvod kreiran',
             'type' => 'success'
         ]);
@@ -86,7 +86,7 @@ class ProductController extends Controller
             'category_id' => $validatedData['category_id']
         ]);
        
-        return redirect(route('products'))->with('message', [
+        return redirect(route('proizvodi'))->with('message', [
             'body' => 'Proizvod izmenjen',
             'type' => 'success'
         ]);
@@ -99,7 +99,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect(route('products'))->with('message', [
+        return redirect(route('proizvodi'))->with('message', [
             'body' => 'Proizvod izbrisan',
             'type' => 'success'
         ]);

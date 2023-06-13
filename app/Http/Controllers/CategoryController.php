@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect(route('categories'))->with('message', [
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Prodavnica kreirana',
             'type' => 'success'
         ]);
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
     
-        return redirect(route('categories'))->with('message', [
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Kategorija izmenjena',
             'type' => 'success'
         ]);
@@ -89,7 +89,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect(route('categories'))->with('message', [
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Kategorija izbrisana',
             'type' => 'success'
         ]);
