@@ -26,11 +26,6 @@ class BillController extends Controller
      */
     public function index()
     {
-        $pricesByCategory = Bill::join('products', 'bills.product_id', '=', 'products.id')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->groupBy('categories.id')
-        ->select('categories.title as category', DB::raw('SUM(bills.price) as total_price'))
-        ->get();
         return inertia()->render('Bill/Index', [
            
             'bills' => BillResource::collection(
@@ -39,7 +34,6 @@ class BillController extends Controller
                     ->oldest()
                     ->paginate(self::BILLS_PER_PAGE)
             ),
-            'price' => $pricesByCategory
         ]);
     }
 

@@ -37,6 +37,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Računi
                                 </NavLink>
+                                <NavLink
+                                    :href="route('statistics')"
+                                    :active="route().current('statistics')"
+                                >
+                                    Statistika
+                                </NavLink>
                                 <template v-if="$page.props.auth.user.admin">
                                     <NavLink
                                         :href="route('categories')"

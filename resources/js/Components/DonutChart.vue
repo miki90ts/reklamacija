@@ -20,7 +20,7 @@ const chartData = ref({
 });
 
 const props = defineProps({
-    price: Array,
+    priceByCategory: Array,
 });
 
 const chartOptions = ref({
@@ -28,7 +28,7 @@ const chartOptions = ref({
     maintainAspectRatio: false,
 });
 
-props.price.forEach((category) => {
+props.priceByCategory.forEach((category) => {
     chartData.value.labels.push(category.category);
     chartData.value.datasets[0].data.push(category.total_price);
 });

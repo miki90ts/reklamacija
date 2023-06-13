@@ -8,6 +8,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StatisticIndexController;
 use App\Http\Controllers\WarrantyLengthController;
 
 /*
@@ -69,6 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'edit'])->name('warranty_lengths.edit');
     Route::patch('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'update'])->name('warranty_lengths.update'); 
     Route::delete('/warranty-lengths/{warrantyLength}', [WarrantyLengthController::class, 'destroy'])->name('warranty_lengths.destroy'); 
+    
+    Route::get('/statistics', StatisticIndexController::class)->name('statistics'); 
 });
 
 require __DIR__.'/auth.php';
