@@ -17,7 +17,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Store-Edit" />
+    <Head title="Izmena prodavnice" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -35,7 +35,7 @@ const form = useForm({
                                 <form
                                     @submit.prevent="
                                         form.patch(
-                                            route('store.update', store.data)
+                                            route('prodavnice.update', store.data)
                                         )
                                     "
                                     class="mt-6 space-y-6"
@@ -60,7 +60,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('stores')">
+                                        <BackLink :href="route('prodavnice')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

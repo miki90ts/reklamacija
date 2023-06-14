@@ -50,7 +50,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route("bills.store"));
+    form.post(route("racuni.store"));
 };
 
 const filteredProducts = computed(() => {
@@ -260,7 +260,7 @@ function setFilteredProducts(data) {
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('bills')">
+                                        <BackLink :href="route('racuni')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

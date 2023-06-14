@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('bills')">
+                                <Link :href="route('racuni')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -32,40 +32,40 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('bills')"
-                                    :active="route().current('bills')"
+                                    :href="route('racuni')"
+                                    :active="route().current('racuni')"
                                 >
                                     Računi
                                 </NavLink>
                                 <NavLink
-                                    :href="route('statistics')"
-                                    :active="route().current('statistics')"
+                                    :href="route('statistika')"
+                                    :active="route().current('statistika')"
                                 >
                                     Statistika
                                 </NavLink>
                                 <template v-if="$page.props.auth.user.admin">
                                     <NavLink
-                                        :href="route('categories')"
-                                        :active="route().current('categories')"
+                                        :href="route('kategorije')"
+                                        :active="route().current('kategorije')"
                                     >
                                         Kategorije
                                     </NavLink>
                                     <NavLink
-                                        :href="route('products')"
-                                        :active="route().current('products')"
+                                        :href="route('proizvodi')"
+                                        :active="route().current('proizvodi')"
                                     >
                                         Produkti
                                     </NavLink>
                                     <NavLink
-                                        :href="route('stores')"
-                                        :active="route().current('stores')"
+                                        :href="route('prodavnice')"
+                                        :active="route().current('prodavnice')"
                                     >
                                         Prodavnice
                                     </NavLink>
                                     <NavLink
-                                        :href="route('warranty_lengths')"
+                                        :href="route('duzina_garancije')"
                                         :active="
-                                            route().current('warranty_lengths')
+                                            route().current('duzina_garancije')
                                         "
                                     >
                                         Dužina garancije
@@ -106,14 +106,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            Profil
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            Odjava
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -173,8 +173,8 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            :href="route('bills')"
-                            :active="route().current('bills')"
+                            :href="route('racuni')"
+                            :active="route().current('racuni')"
                         >
                             Računi
                         </ResponsiveNavLink>
@@ -193,14 +193,14 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                Profil
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Log Out
+                                Odjava
                             </ResponsiveNavLink>
                         </div>
                     </div>

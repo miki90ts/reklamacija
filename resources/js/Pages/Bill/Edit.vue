@@ -16,7 +16,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { router } from "@inertiajs/vue3";
 
 function submit(bill) {
-    router.post(route("bills.update", bill), {
+    router.post(route("racuni.update", bill), {
         _method: "patch",
         category_id: form.category_id,
         product_id: form.product_id,
@@ -275,7 +275,7 @@ function setFilteredProducts(data) {
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('bills')">
+                                        <BackLink :href="route('racuni')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

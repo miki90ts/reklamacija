@@ -39,7 +39,7 @@ const form = useForm({
                                     @submit.prevent="
                                         form.patch(
                                             route(
-                                                'products.update',
+                                                'proizvodi.update',
                                                 product.data
                                             )
                                         )
@@ -90,7 +90,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('products')">
+                                        <BackLink :href="route('proizvodi')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

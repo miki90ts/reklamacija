@@ -11,7 +11,7 @@ import "vue-toastification/dist/index.css";
 import { notifications } from "./Plugins/notifications";
 
 const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
+    window.document.getElementsByTagName("title")[0]?.innerText || "reklamacija.rs";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

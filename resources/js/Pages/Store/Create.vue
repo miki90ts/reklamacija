@@ -13,7 +13,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Store-Add" />
+    <Head title="Unos prodavnice" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -30,7 +30,7 @@ const form = useForm({
                             <div class="overflow-x-auto">
                                 <form
                                     @submit.prevent="
-                                        form.post(route('store.store'))
+                                        form.post(route('prodavnice.store'))
                                     "
                                     class="mt-6 space-y-6"
                                 >
@@ -54,7 +54,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('stores')">
+                                        <BackLink :href="route('proizvodi')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

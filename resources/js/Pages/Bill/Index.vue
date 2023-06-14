@@ -16,7 +16,7 @@ const form = useForm({});
 
 const deleteBill = (bill) => {
     bill.processing = true;
-    form.delete(route("bills.destroy", bill));
+    form.delete(route("racuni.destroy", bill));
 };
 </script>
 
@@ -36,10 +36,10 @@ const deleteBill = (bill) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('bills.create')"
+                                :href="route('racuni.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Add
+                                Dodaj
                             </Link>
 
                             <div class="overflow-x-auto mt-3">
@@ -142,12 +142,12 @@ const deleteBill = (bill) => {
                                                     <div class="flex">
                                                         <Link
                                                             :href="`${route(
-                                                                'bills.edit',
+                                                                'racuni.edit',
                                                                 bill
                                                             )}`"
                                                             class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                         >
-                                                            Edit
+                                                            Izmeni
                                                         </Link>
 
                                                         <DangerButton
@@ -163,7 +163,7 @@ const deleteBill = (bill) => {
                                                                 bill.processing
                                                             "
                                                         >
-                                                            Delete
+                                                            Obriši
                                                         </DangerButton>
                                                     </div>
                                                 </td>

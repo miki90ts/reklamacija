@@ -15,12 +15,12 @@ const form = useForm({});
 
 const deleteProduct = (product) => {
     product.processing = true;
-    form.delete(route("products.destroy", product));
+    form.delete(route("proizvodi.destroy", product));
 };
 </script>
 
 <template>
-    <Head title="products" />
+    <Head title="Proizvodi" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -35,10 +35,10 @@ const deleteProduct = (product) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('products.create')"
+                                :href="route('proizvodi.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Add
+                                Dodaj
                             </Link>
                             <div class="overflow-x-auto mt-3">
                                 <table
@@ -92,12 +92,12 @@ const deleteProduct = (product) => {
                                             >
                                                 <Link
                                                     :href="`${route(
-                                                        'products.edit',
+                                                        'proizvodi.edit',
                                                         product
                                                     )}`"
                                                     class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Edit
+                                                    Izmeni
                                                 </Link>
 
                                                 <DangerButton
@@ -113,7 +113,7 @@ const deleteProduct = (product) => {
                                                         product.processing
                                                     "
                                                 >
-                                                    Delete
+                                                    Obriši
                                                 </DangerButton>
                                             </td>
                                         </tr>

@@ -36,42 +36,42 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/racuni', [BillController::class, 'index'])->name('bills');
-    Route::post('/racuni/store', [BillController::class, 'store'])->name('bills.store');
-    Route::get('/racuni/create', [BillController::class, 'create'])->name('bills.create');
-    Route::get('/racuni/{bill}', [BillController::class, 'edit'])->name('bills.edit');
-    Route::patch('/racuni/{bill}', [BillController::class, 'update'])->name('bills.update'); 
-    Route::delete('/racuni/{bill}', [BillController::class, 'destroy'])->name('bills.destroy'); 
+    Route::get('/racuni', [BillController::class, 'index'])->name('racuni');
+    Route::post('/racuni/sacuvaj', [BillController::class, 'store'])->name('racuni.store');
+    Route::get('/racuni/unos', [BillController::class, 'create'])->name('racuni.create');
+    Route::get('/racuni/{bill}', [BillController::class, 'edit'])->name('racuni.edit');
+    Route::patch('/racuni/{bill}', [BillController::class, 'update'])->name('racuni.update'); 
+    Route::delete('/racuni/{bill}', [BillController::class, 'destroy'])->name('racuni.destroy'); 
 
-    Route::get('/kategorije', [CategoryController::class, 'index'])->name('categories');
-    Route::post('/kategorije/store', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/kategorije/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::get('/kategorije/{category}', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::patch('/kategorije/{category}', [CategoryController::class, 'update'])->name('categories.update'); 
-    Route::delete('/kategorije/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy'); 
+    Route::get('/kategorije', [CategoryController::class, 'index'])->name('kategorije');
+    Route::post('/kategorije/sacuvaj', [CategoryController::class, 'store'])->name('kategorije.store');
+    Route::get('/kategorije/unos', [CategoryController::class, 'create'])->name('kategorije.create');
+    Route::get('/kategorije/{category}', [CategoryController::class, 'edit'])->name('kategorije.edit');
+    Route::patch('/kategorije/{category}', [CategoryController::class, 'update'])->name('kategorije.update'); 
+    Route::delete('/kategorije/{category}', [CategoryController::class, 'destroy'])->name('kategorije.destroy'); 
 
-    Route::get('/prodavnice', [StoreController::class, 'index'])->name('stores');
-    Route::post('/prodavnice/store', [StoreController::class, 'store'])->name('store.store');
-    Route::get('/prodavnice/create', [StoreController::class, 'create'])->name('store.create');
-    Route::get('/prodavnice/{store}', [StoreController::class, 'edit'])->name('store.edit');
-    Route::patch('/prodavnice/{store}', [StoreController::class, 'update'])->name('store.update'); 
-    Route::delete('/prodavnice/{store}', [StoreController::class, 'destroy'])->name('store.destroy'); 
+    Route::get('/prodavnice', [StoreController::class, 'index'])->name('prodavnice');
+    Route::post('/prodavnice/sacuvaj', [StoreController::class, 'store'])->name('prodavnice.store');
+    Route::get('/prodavnice/unos', [StoreController::class, 'create'])->name('prodavnice.create');
+    Route::get('/prodavnice/{store}', [StoreController::class, 'edit'])->name('prodavnice.edit');
+    Route::patch('/prodavnice/{store}', [StoreController::class, 'update'])->name('prodavnice.update'); 
+    Route::delete('/prodavnice/{store}', [StoreController::class, 'destroy'])->name('prodavnice.destroy'); 
 
-    Route::get('/proizvodi', [ProductController::class, 'index'])->name('products');
-    Route::post('/proizvodi/store', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/proizvodi/create', [ProductController::class, 'create'])->name('products.create');
-    Route::get('/proizvodi/{product}', [ProductController::class, 'edit'])->name('products.edit');
-    Route::patch('/proizvodi/{product}', [ProductController::class, 'update'])->name('products.update'); 
-    Route::delete('/proizvodi/{product}', [ProductController::class, 'destroy'])->name('products.destroy'); 
+    Route::get('/proizvodi', [ProductController::class, 'index'])->name('proizvodi');
+    Route::post('/proizvodi/sacuvaj', [ProductController::class, 'store'])->name('proizvodi.store');
+    Route::get('/proizvodi/unos', [ProductController::class, 'create'])->name('proizvodi.create');
+    Route::get('/proizvodi/{product}', [ProductController::class, 'edit'])->name('proizvodi.edit');
+    Route::patch('/proizvodi/{product}', [ProductController::class, 'update'])->name('proizvodi.update'); 
+    Route::delete('/proizvodi/{product}', [ProductController::class, 'destroy'])->name('proizvodi.destroy'); 
     
-    Route::get('/duzina-garancije', [WarrantyLengthController::class, 'index'])->name('warranty_lengths');
-    Route::post('/duzina-garancije/store', [WarrantyLengthController::class, 'store'])->name('warranty_lengths.store');
-    Route::get('/duzina-garancije/create', [WarrantyLengthController::class, 'create'])->name('warranty_lengths.create');
-    Route::get('/duzina-garancije/{warrantyLength}', [WarrantyLengthController::class, 'edit'])->name('warranty_lengths.edit');
-    Route::patch('/duzina-garancije/{warrantyLength}', [WarrantyLengthController::class, 'update'])->name('warranty_lengths.update'); 
-    Route::delete('/duzina-garancije/{warrantyLength}', [WarrantyLengthController::class, 'destroy'])->name('warranty_lengths.destroy'); 
+    Route::get('/duzina_garancije', [WarrantyLengthController::class, 'index'])->name('duzina_garancije');
+    Route::post('/duzina_garancije/sacuvaj', [WarrantyLengthController::class, 'store'])->name('duzina_garancije.store');
+    Route::get('/duzina_garancije/unos', [WarrantyLengthController::class, 'create'])->name('duzina_garancije.create');
+    Route::get('/duzina_garancije/{warrantyLength}', [WarrantyLengthController::class, 'edit'])->name('duzina_garancije.edit');
+    Route::patch('/duzina_garancije/{warrantyLength}', [WarrantyLengthController::class, 'update'])->name('duzina_garancije.update'); 
+    Route::delete('/duzina_garancije/{warrantyLength}', [WarrantyLengthController::class, 'destroy'])->name('duzina_garancije.destroy'); 
     
-    Route::get('/statistika', StatisticIndexController::class)->name('statistics'); 
+    Route::get('/statistika', StatisticIndexController::class)->name('statistika'); 
 });
 
 require __DIR__.'/auth.php';
