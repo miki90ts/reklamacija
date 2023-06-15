@@ -15,7 +15,7 @@ const form = useForm({});
 
 const deleteCategory = (category) => {
     category.processing = true;
-    form.delete(route("kategorije.destroy", category.id));
+    form.delete(route("kategorije.destroy", category));
 };
 </script>
 
@@ -95,9 +95,7 @@ const deleteCategory = (category) => {
 
                                                 <DangerButton
                                                     class="ml-3"
-                                                    @click="
-                                                        deleteCategory(category)
-                                                    "
+                                                    @click="deleteCategory(category)"
                                                     :class="{
                                                         'opacity-25':
                                                             category.processing,

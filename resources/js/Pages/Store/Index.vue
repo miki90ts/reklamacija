@@ -15,7 +15,7 @@ const form = useForm({});
 
 const deleteStore = (store) => {
     store.processing = true;
-    form.delete(route("store.destroy", store));
+    form.delete(route("prodavnice.destroy", store));
 };
 </script>
 

@@ -13,7 +13,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Category-Add" />
+    <Head title="Unos kategorije" />
 
     <AuthenticatedLayout>
         <template #header>

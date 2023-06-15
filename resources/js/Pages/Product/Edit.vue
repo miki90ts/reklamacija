@@ -20,7 +20,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Product-Edit" />
+    <Head title="Izmena proizvoda" />
 
     <AuthenticatedLayout>
         <template #header>

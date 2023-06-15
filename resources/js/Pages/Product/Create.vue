@@ -25,7 +25,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Product-Add" />
+    <Head title="Unos proizvoda" />
 
     <AuthenticatedLayout>
         <template #header>

@@ -139,7 +139,6 @@ const deleteBill = (bill) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    <div class="flex">
                                                         <Link
                                                             :href="`${route(
                                                                 'racuni.edit',
@@ -165,7 +164,6 @@ const deleteBill = (bill) => {
                                                         >
                                                             Obriši
                                                         </DangerButton>
-                                                    </div>
                                                 </td>
                                             </tr>
                                         </template>

@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Statistika" />
 
     <AuthenticatedLayout>
         <template #header>

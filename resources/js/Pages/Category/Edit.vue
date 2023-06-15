@@ -17,7 +17,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Category-Edit" />
+    <Head title="Izmena kategorije" />
 
     <AuthenticatedLayout>
         <template #header>
