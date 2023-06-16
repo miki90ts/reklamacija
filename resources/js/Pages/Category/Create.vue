@@ -13,7 +13,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Category-Add" />
+    <Head title="Unos kategorije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -30,7 +30,7 @@ const form = useForm({
                             <div class="overflow-x-auto">
                                 <form
                                     @submit.prevent="
-                                        form.post(route('categories.store'))
+                                        form.post(route('kategorije.store'))
                                     "
                                     class="mt-6 space-y-6"
                                 >
@@ -54,7 +54,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('categories')">
+                                        <BackLink :href="route('kategorije')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

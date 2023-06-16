@@ -6,7 +6,7 @@ import { useForm } from "@inertiajs/vue3";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
-    categories: {
+    kategorije: {
         type: Object,
     },
 });
@@ -15,12 +15,12 @@ const form = useForm({});
 
 const deleteCategory = (category) => {
     category.processing = true;
-    form.delete(route("categories.destroy", category.id));
+    form.delete(route("kategorije.destroy", category));
 };
 </script>
 
 <template>
-    <Head title="Categories" />
+    <Head title="Kategorije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -35,10 +35,10 @@ const deleteCategory = (category) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('categories.create')"
+                                :href="route('kategorije.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Add
+                                Dodaj
                             </Link>
                             <div class="overflow-x-auto mt-3">
                                 <table
@@ -59,17 +59,17 @@ const deleteCategory = (category) => {
                                         <tr
                                             v-for="(
                                                 category, index
-                                            ) in categories.data"
+                                            ) in kategorije.data"
                                             :key="category.id"
                                         >
                                             <td
                                                 class="py-2 px-4 border-b text-center"
                                             >
                                                 {{
-                                                    (categories.meta
+                                                    (kategorije.meta
                                                         .current_page -
                                                         1) *
-                                                        categories.meta
+                                                        kategorije.meta
                                                             .per_page +
                                                     index +
                                                     1
@@ -85,19 +85,17 @@ const deleteCategory = (category) => {
                                             >
                                                 <Link
                                                     :href="`${route(
-                                                        'categories.edit',
+                                                        'kategorije.edit',
                                                         category
                                                     )}`"
                                                     class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Edit
+                                                    Izmeni
                                                 </Link>
 
                                                 <DangerButton
                                                     class="ml-3"
-                                                    @click="
-                                                        deleteCategory(category)
-                                                    "
+                                                    @click="deleteCategory(category)"
                                                     :class="{
                                                         'opacity-25':
                                                             category.processing,
@@ -106,14 +104,14 @@ const deleteCategory = (category) => {
                                                         category.processing
                                                     "
                                                 >
-                                                    Delete
+                                                    Obriši
                                                 </DangerButton>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
-                                <Pagination :pagination="categories.meta" />
+                                <Pagination :pagination="kategorije.meta" />
                             </div>
                         </div>
                     </div>

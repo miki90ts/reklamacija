@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import Footer from "@/Components/Footer.vue";
 
 const props = defineProps({
     bills: Object,
@@ -8,12 +9,12 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Kontrolna tabla" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                Kontrolna tabla
             </h2>
         </template>
 
@@ -109,7 +110,7 @@ const props = defineProps({
                                                 <button
                                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Edit
+                                                    Izmena
                                                 </button>
                                             </td>
                                         </tr>
@@ -121,5 +122,7 @@ const props = defineProps({
                 </div>
             </div>
         </div>
+        
     </AuthenticatedLayout>
 </template>
+<Footer />

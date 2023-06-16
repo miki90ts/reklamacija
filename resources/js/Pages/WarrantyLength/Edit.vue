@@ -20,7 +20,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Warranty lengths-Edit" />
+    <Head title="Izmena dužine garancije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -39,7 +39,7 @@ const form = useForm({
                                     @submit.prevent="
                                         form.patch(
                                             route(
-                                                'warranty_lengths.update',
+                                                'duzina_garancije.update',
                                                 warrantyLength.data
                                             )
                                         )
@@ -87,7 +87,7 @@ const form = useForm({
 
                                     <div class="flex items-center gap-4">
                                         <BackLink
-                                            :href="route('warranty_lengths')"
+                                            :href="route('duzina_garancije')"
                                         >
                                             Nazad
                                         </BackLink>

@@ -43,7 +43,7 @@ class StoreController extends Controller
     {
         Store::create($request->validated());
 
-        return redirect(route('stores'))->with('message', [
+        return redirect(route('prodavnice'))->with('message', [
             'body' => 'Prodavnica kreirana',
             'type' => 'success'
         ]);
@@ -74,7 +74,7 @@ class StoreController extends Controller
     {
         $store->update($request->validated());
     
-        return redirect(route('stores'))->with('message', [
+        return redirect(route('prodavnice'))->with('message', [
             'body' => 'Prodavnica izmenjena',
             'type' => 'success'
         ]);
@@ -87,7 +87,7 @@ class StoreController extends Controller
     {
         $store->delete();
 
-        return redirect(route('stores'))->with('message', [
+        return redirect(route('prodavnice'))->with('message', [
             'body' => 'Prodavnica izbrisana',
             'type' => 'success'
         ]);

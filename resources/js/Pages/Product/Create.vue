@@ -20,12 +20,12 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route("products.store"));
+    form.post(route("proizvodi.store"));
 };
 </script>
 
 <template>
-    <Head title="Product-Add" />
+    <Head title="Unos proizvoda" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -88,7 +88,7 @@ const submit = () => {
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('products')">
+                                        <BackLink :href="route('proizvodi')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

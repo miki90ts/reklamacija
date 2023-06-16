@@ -14,7 +14,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Warranty lengths-Add" />
+    <Head title="Unos dužine garancije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -32,7 +32,7 @@ const form = useForm({
                                 <form
                                     @submit.prevent="
                                         form.post(
-                                            route('warranty_lengths.store')
+                                            route('duzina_garancije.store')
                                         )
                                     "
                                     class="mt-6 space-y-6"
@@ -78,7 +78,7 @@ const form = useForm({
 
                                     <div class="flex items-center gap-4">
                                         <BackLink
-                                            :href="route('warranty_lengths')"
+                                            :href="route('duzina_garancije')"
                                         >
                                             Nazad
                                         </BackLink>

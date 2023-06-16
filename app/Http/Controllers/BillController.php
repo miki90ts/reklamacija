@@ -72,7 +72,7 @@ class BillController extends Controller
         
         $bill->save();
 
-        return redirect(route('bills'))->with('message', [
+        return redirect(route('racuni'))->with('message', [
             'body' => 'Račun sačuvan',
             'type' => 'success'
         ]);
@@ -126,7 +126,7 @@ class BillController extends Controller
             'note' => $validatedData['note'],
         ]);
 
-        return redirect(route('bills'))->with('message', [
+        return redirect(route('racuni'))->with('message', [
             'body' => 'Račun izmenjen',
             'type' => 'success'
         ]);
@@ -141,7 +141,7 @@ class BillController extends Controller
         
         $bill->delete();
 
-        return redirect(route('bills'))->with('message', [
+        return redirect(route('racuni'))->with('message', [
             'body' => 'Račun izbrisan',
             'type' => 'success'
         ]);

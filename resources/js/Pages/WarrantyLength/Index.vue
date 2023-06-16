@@ -15,12 +15,12 @@ const form = useForm({});
 
 const deleteWarrantyLengths = (warrantyLength) => {
     warrantyLength.processing = true;
-    form.delete(route("warranty_lengths.destroy", warrantyLength));
+    form.delete(route("duzina_garancije.destroy", warrantyLength));
 };
 </script>
 
 <template>
-    <Head title="Warranty lengths" />
+    <Head title="Dužina garancije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -35,10 +35,10 @@ const deleteWarrantyLengths = (warrantyLength) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('warranty_lengths.create')"
+                                :href="route('duzina_garancije.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Add
+                                Dodaj
                             </Link>
                             <div class="overflow-x-auto mt-3">
                                 <table
@@ -93,12 +93,12 @@ const deleteWarrantyLengths = (warrantyLength) => {
                                             >
                                                 <Link
                                                     :href="`${route(
-                                                        'warranty_lengths.edit',
+                                                        'duzina_garancije.edit',
                                                         warrantyLength
                                                     )}`"
                                                     class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Edit
+                                                    Izmeni
                                                 </Link>
 
                                                 <DangerButton
@@ -116,7 +116,7 @@ const deleteWarrantyLengths = (warrantyLength) => {
                                                         warrantyLength.processing
                                                     "
                                                 >
-                                                    Delete
+                                                    Obriši
                                                 </DangerButton>
                                             </td>
                                         </tr>

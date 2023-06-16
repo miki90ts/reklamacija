@@ -14,7 +14,7 @@ class StatisticIndexController extends Controller
         return inertia()->render('Statistic/Index', [
             'priceByCategory' => Bill::join('products', 'bills.product_id', '=', 'products.id')
                         ->join('categories', 'products.category_id', '=', 'categories.id')
-                        ->groupBy('categories.id')
+                        ->groupBy('categories.id', 'categories.title')
                         ->select(
                             'categories.title as category',
                             'categories.id',

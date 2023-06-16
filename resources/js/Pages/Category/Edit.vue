@@ -17,7 +17,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Category-Edit" />
+    <Head title="Izmena kategorije" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -36,7 +36,7 @@ const form = useForm({
                                     @submit.prevent="
                                         form.patch(
                                             route(
-                                                'categories.update',
+                                                'kategorije.update',
                                                 category.data
                                             )
                                         )
@@ -63,7 +63,7 @@ const form = useForm({
                                     </div>
 
                                     <div class="flex items-center gap-4">
-                                        <BackLink :href="route('categories')">
+                                        <BackLink :href="route('kategorije')">
                                             Nazad
                                         </BackLink>
                                         <div class="flex items-center gap-4">

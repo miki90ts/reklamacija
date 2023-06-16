@@ -15,12 +15,12 @@ const form = useForm({});
 
 const deleteStore = (store) => {
     store.processing = true;
-    form.delete(route("store.destroy", store));
+    form.delete(route("prodavnice.destroy", store));
 };
 </script>
 
 <template>
-    <Head title="stores" />
+    <Head title="Prodavnice" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -35,10 +35,10 @@ const deleteStore = (store) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('store.create')"
+                                :href="route('prodavnice.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Add
+                                Dodaj
                             </Link>
                             <div class="overflow-x-auto mt-3">
                                 <table
@@ -83,12 +83,12 @@ const deleteStore = (store) => {
                                             >
                                                 <Link
                                                     :href="`${route(
-                                                        'store.edit',
+                                                        'prodavnice.edit',
                                                         store
                                                     )}`"
                                                     class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Edit
+                                                    Izmeni
                                                 </Link>
 
                                                 <DangerButton
@@ -100,7 +100,7 @@ const deleteStore = (store) => {
                                                     }"
                                                     :disabled="store.processing"
                                                 >
-                                                    Delete
+                                                    Obriši
                                                 </DangerButton>
                                             </td>
                                         </tr>

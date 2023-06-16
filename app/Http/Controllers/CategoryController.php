@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\CategoryPatchRequest;
 use App\Http\Requests\CategoryStoreRequest;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -23,8 +24,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return inertia()->render('Category/Index', [
-            'categories' => CategoryResource::collection(Category::paginate(10)),
+        return Inertia::render('Category/Index', [
+            'kategorije' => CategoryResource::collection(Category::paginate(10)),
         ]);
     }
 
@@ -33,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-       return inertia()->render('Category/Create');
+        return Inertia::render('Category/Create');
     }
 
     /**
@@ -41,11 +42,9 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        $category = Category::make($request->validated());
+        $category = Category::create($request->validated());
 
-        $category->save();
-
-        return redirect(route('categories'))->with('message', [
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Prodavnica kreirana',
             'type' => 'success'
         ]);
@@ -56,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // Logic for showing a specific category if needed
     }
 
     /**
@@ -64,8 +63,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return inertia()->render('Category/Edit', [
-            'category' => new CategoryResource(Category::findOrFail($category->id)),
+        return Inertia::render('Category/Edit', [
+            'category' => new CategoryResource($category),
         ]);
     }
 
@@ -75,8 +74,8 @@ class CategoryController extends Controller
     public function update(CategoryPatchRequest $request, Category $category)
     {
         $category->update($request->validated());
-    
-        return redirect(route('categories'))->with('message', [
+
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Kategorija izmenjena',
             'type' => 'success'
         ]);
@@ -89,7 +88,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect(route('categories'))->with('message', [
+        return redirect(route('kategorije'))->with('message', [
             'body' => 'Kategorija izbrisana',
             'type' => 'success'
         ]);
