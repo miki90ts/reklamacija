@@ -24,7 +24,11 @@ defineProps({
   <Head title="Dobrodošli" />
   <div class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <h1 class="text-xl font-bold text-white"><span><ApplicationLogo class="w-8 h-8 text-white" /> reklamacije.rs</span></h1>
+      <div class="flex">
+        <ApplicationLogo class="w-8 h-8 text-white" />
+        <h1 class="text-xl m-1 font-bold text-white inline-block">
+          <span> reklamacije.rs</span></h1>
+      </div>
 
       <div v-if="canLogin" class="flex items-center">
         <Link
@@ -55,31 +59,68 @@ defineProps({
     </div>
   </div>
   <div
-    class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-blue-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
+    class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-white dark:bg-dots-lighter dark:bg-gray-900 selection:bg-blue-500 selection:text-white"
   >
   
-    <div class="min-h-screen flex items-center justify-center">
-    <div class="max-w-lg bg-white shadow-md rounded-lg overflow-hidden">
-      <div class="bg-gradient-to-r from-blue-500 to-indigo-500 py-8 px-6">
-        <div class="flex items-center justify-center">
-          <ApplicationLogo class="w-16 h-16 text-white mr-2" />
-          <h2 class="text-2xl font-bold text-white">Reklamacija.rs</h2>
+    <div class="min-h-screen w-full">
+      <div class="w-full bg-white rounded-lg overflow-hidden container md:px-12">
+        <div class="md:m-5 m-2">
+          <div class="flex md:m-12 items-center">
+            <ApplicationLogo class="w-48 h-48 text-white m-2 hidden md:block" />
+            <div class="flex-column">
+              <h1 class="md:text-5xl font-bold border-b-2 border-b-orange-400">Napredna evidencija garancija</h1>
+              <p class="mx-3 mt-2 border-b-2 border-dotted">Dobrodošli na naš portal koji vam omogućava kontrolu garancija za vaše električne uređaje, automobile, građevinske radove i ostalo.
+              <br>Precizna evidencija garancija uz napredne funkcionalnosti nikad nije bila lakša.
+              <br>Dodajte svoje račune još danas, a mi ćemo umesto vas da mislimo.</p>
+            </div>
+          </div>
         </div>
-        <p class="text-white mt-2">Dobrodošli na naš portal koji vam omogućava kontrolu garancija za vaše električne uređaje. Pregledajte svoje račune, pratite istek garancije i još mnogo toga.</p>
+      </div>          
+      <div class="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white p-5">
+        <h2 class="text-2xl text-center font-semibold  mb-4">Ključne funkcionalnosti:</h2>
+        <div class="flex justify-center  items-center">
+          <ul class="list-none list-inside text-black p-2">
+            <li class="p-2"><i class="fa-solid fa-camera fa-beat-fade mr-2 text-xl"></i> Dodajte račun lako uz pomoć telefona</li>
+            <li class="p-2"><i class="fa-solid fa-clock fa-shake mr-2 text-xl"></i> Saznajte na vreme istek garancije</li>
+            <li class="p-2"><i class="fa-solid fa-envelope fa-flip mr-2 text-xl"></i> Primajte obaveštenja o novim servisima i akcijama</li>
+          </ul>
+        </div>          
       </div>
-      <div class="p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Ključne funkcionalnosti</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Pregledajte i upravljajte računima</li>
-          <li>Pratite istek garancije</li>
-          <li>Primajte obaveštenja o novim servisima i akcijama</li>
-        </ul>
+      <div class="w-full h-48 text-black p-4">
+        <div class="flex justify-center  items-center mb-5">
+          <i class="fa-solid fa-share-nodes text-xl p-2"></i>
+          <p class="p-2 italic">Zapratite nas na društvenim mrežama:</p>
+        </div>          
+        <div class="flex justify-center items-center">
+        <a
+          href="https://twitter.com/reklamacije_rs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-6xl mx-5"
+        >
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a
+          href="https://www.facebook.com/reklamacije.rs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-6xl mx-5"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/reklamacije.rs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-6xl mx-5"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        </div>
       </div>
-      <div class="bg-gradient-to-r from-orange-500 to-amber-500 py-4 px-6">
-        <a href="#" class="text-white font-bold hover:underline">Saznajte više</a>
-      </div>
+      
     </div>
-  </div>
+    
   </div>
   <Footer />
 </template>
