@@ -19,7 +19,7 @@ defineProps({
     required: true,
   },
 });
-const showMenu = ref(false);
+const showMenu = ref(true);
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -34,7 +34,8 @@ const toggleMenu = () => {
 </style>
 <template>
   <Head title="Dobrodošli" />
-  <div class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
+  
+  <nav class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex">
         <ApplicationLogo class="w-8 h-8 text-white" />
@@ -110,7 +111,7 @@ const toggleMenu = () => {
        
       </div>
     </div>
-  </div>
+  </nav>
   <div
     class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-white dark:bg-dots-lighter dark:bg-gray-900 selection:bg-blue-500 selection:text-white"
   >
