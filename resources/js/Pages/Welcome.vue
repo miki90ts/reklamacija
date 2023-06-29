@@ -2,6 +2,7 @@
 import { Head, Link } from "@inertiajs/vue3";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Footer from "@/Components/Footer.vue";
+import { ref } from 'vue';
 defineProps({
   canLogin: {
     type: Boolean,
@@ -18,11 +19,23 @@ defineProps({
     required: true,
   },
 });
-</script>
+const showMenu = ref(true);
 
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+};
+</script>
+<style>
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none !important;
+  }
+}
+</style>
 <template>
   <Head title="Dobrodošli" />
-  <div class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
+  
+  <nav class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex">
         <ApplicationLogo class="w-8 h-8 text-white" />
@@ -31,10 +44,47 @@ defineProps({
       </div>
 
       <div v-if="canLogin" class="flex items-center">
-        <Link
+        <button
+          class="block lg:hidden text-white focus:outline-none"
+          @click="toggleMenu"
+        >
+          <svg
+            v-if="!showMenu"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+          <svg
+            v-else
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+        <div class="flex flex-col lg:flex-row">
+          <Link
           v-if="$page.props.auth.user"
           :href="route('dashboard')"
           class="font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+          :class="{ 'hidden': !showMenu }"
         >
           Kontrolna tabla
         </Link>
@@ -42,7 +92,8 @@ defineProps({
         <template v-else>
           <Link
             :href="route('login')"
-            class="font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+            class="ml-4 font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+            :class="{ 'hidden': !showMenu }"
           >
             Prijava
           </Link>
@@ -51,13 +102,16 @@ defineProps({
             v-if="canRegister"
             :href="route('register')"
             class="ml-4 font-semibold text-white hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+            :class="{ 'hidden': !showMenu }"
           >
             Registracija
           </Link>
         </template>
+        </div>
+       
       </div>
     </div>
-  </div>
+  </nav>
   <div
     class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-white dark:bg-dots-lighter dark:bg-gray-900 selection:bg-blue-500 selection:text-white"
   >
