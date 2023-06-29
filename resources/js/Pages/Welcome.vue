@@ -35,7 +35,7 @@ const toggleMenu = () => {
 <template>
   <Head title="Dobrodošli" />
   
-  <nav class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
+  <nav class="bg-gradient-to-r from-blue-400 to-blue-500 p-4 shadow-2xl">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex">
         <ApplicationLogo class="w-8 h-8 text-white" />
@@ -117,20 +117,41 @@ const toggleMenu = () => {
   >
   
     <div class="min-h-screen w-full">
-      <div class="w-full bg-white rounded-lg overflow-hidden container md:px-12">
+      <div class="w-full bg-repeat overflow-hidden md:px-12 min-h-screen" style="background-image:url(images/background_image_opacity_50.png)">
         <div class="md:m-5 m-2">
           <div class="flex md:m-12 items-center">
-            <ApplicationLogo class="w-48 h-48 text-white m-2 hidden md:block" />
-            <div class="flex-column">
-              <h1 class="md:text-5xl font-bold border-b-2 border-b-orange-400">Napredna evidencija garancija</h1>
-              <p class="mx-3 mt-2 border-b-2 border-dotted">Dobrodošli na naš portal koji vam omogućava kontrolu garancija za vaše električne uređaje, automobile, građevinske radove i ostalo.
-              <br>Precizna evidencija garancija uz napredne funkcionalnosti nikad nije bila lakša.
-              <br>Dodajte svoje račune još danas, a mi ćemo umesto vas da mislimo.</p>
+            <img src="images/Hero image.png" class="animate-wiggle  mt-10 max-w-xl p-10 hover:animate-none duration-300 transition-animate delay-300" >
+            <div class="flex-column font-bold bg-gradient-to-b rounded-xl from-white via-white to-transparent px-5">
+              <h1 class="md:text-8xl font-bold border-b-8 border-b-orange-500 border-dashed inline-block mb-11 py-2 ">
+                <span class="text-orange-500 hover:cursor-default hover:text-blue-600 transition-all duration-300">EVIDE</span>
+                <!--span class="text-orange-500 hover:text-blue-600 transition-all duration-300">V</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">I</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">D</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">E</span-->
+                <span class="hover:text-orange-500 hover:cursor-default cursor-default text-blue-600 transition-all duration-300">&nbsp;NCIJA</span>
+                <!--span class="hover:text-orange-500 text-blue-600 transition-all duration-300">C</span>
+                <span class="hover:text-orange-500 text-blue-600 transition-all duration-300">I</span>
+                <span class="hover:text-orange-500 text-blue-600 transition-all duration-300">J</span>
+                <span class="hover:text-orange-500 text-blue-600 transition-all duration-300">A</span--><br>              
+                <span class="hover:text-orange-500 hover:cursor-default text-blue-600 transition-all duration-300 tracking-wider">GARA</span>
+                <!--span class="hover:text-orange-500 text-blue-600 transition-all duration-300">A</span>
+                <span class="hover:text-orange-500 text-blue-600 transition-all duration-300">R</span>
+                <span class="hover:text-orange-500 text-blue-600 transition-all duration-300">A</span-->
+                <span class="text-orange-500 hover:cursor-default hover:text-blue-600 transition-all duration-300 pl-3">NCIJA</span>
+                <!--span class="text-orange-500 hover:text-blue-600 transition-all duration-300">C</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">I</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">J</span>
+                <span class="text-orange-500 hover:text-blue-600 transition-all duration-300">A</span-->
+              </h1> <br>
+              <Link :href="route('racuni.create')" class="text-4xl bg-blue-500 hover:bg-orange-500 hover:px-11 text-white font-bold py-2 px-4 rounded transition-all">Dodaj garanciju!</Link>         
             </div>
           </div>
         </div>
       </div>          
-      <div class="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white p-5">
+      <div class="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white p-5 min-h-screen">
+        <p class="mx-3 mt-2  text-xl text-center mb-8"><span class="text-black font-bold">Dobrodošli</span> na naš portal koji vam omogućava kontrolu garancija za Vaše <span class="text-black font-bold">električne uređaje</span>, <span class="text-black font-bold">automobile</span>, <span class="text-black font-bold">građevinske radove</span> i ostalo.
+              <br>Precizna evidencija garancija uz napredne funkcionalnosti nikad nije bila lakša.
+              <br>Dodajte svoje račune još danas, a mi ćemo umesto vas da mislimo.</p>
         <h2 class="text-2xl text-center font-semibold  mb-4">Ključne funkcionalnosti:</h2>
         <div class="flex justify-center  items-center">
           <ul class="list-none list-inside text-black p-2">
