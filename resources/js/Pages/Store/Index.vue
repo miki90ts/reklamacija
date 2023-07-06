@@ -52,6 +52,15 @@ const deleteStore = (store) => {
                                             <th class="py-2 px-4 border-b">
                                                 Naziv
                                             </th>
+                                            <th class="py-2 px-4 border-b">
+                                                Lokacija
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
+                                                Telefon
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
+                                                Email
+                                            </th>
                                             <th class="py-2 px-4 border-b"></th>
                                         </tr>
                                     </thead>
@@ -77,6 +86,22 @@ const deleteStore = (store) => {
                                                 class="py-2 px-4 border-b text-center"
                                             >
                                                 {{ store.title }}
+                                            </td>
+                                            <td
+                                                class="py-2 px-4 border-b text-center"
+                                            >
+                                                {{ store.city }},
+                                                {{ store.address }}
+                                            </td>
+                                            <td
+                                                class="py-2 px-4 border-b text-center"
+                                            >
+                                                {{ store.phone }}
+                                            </td>
+                                            <td
+                                                class="py-2 px-4 border-b text-center"
+                                            >
+                                                {{ store.email }}
                                             </td>
                                             <td
                                                 class="py-2 px-4 border-b text-center"

@@ -21,8 +21,12 @@ class StorePatchRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => ['required']
+       return [
+            'title' => ['required'],
+            'city' => ['required'],
+            'address' => ['required'],
+            'phone' => ['required'],
+            'email' => ['required','email'],
         ];
     }
 }

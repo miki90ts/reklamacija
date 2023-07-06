@@ -50,6 +50,9 @@ const deleteCategory = (category) => {
                                                 ID
                                             </th>
                                             <th class="py-2 px-4 border-b">
+                                                Ikona
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
                                                 Naziv
                                             </th>
                                             <th class="py-2 px-4 border-b"></th>
@@ -78,6 +81,13 @@ const deleteCategory = (category) => {
                                             <td
                                                 class="py-2 px-4 border-b text-center"
                                             >
+                                                <span
+                                                    v-html="category.icon"
+                                                ></span>
+                                            </td>
+                                            <td
+                                                class="py-2 px-4 border-b text-center"
+                                            >
                                                 {{ category.title }}
                                             </td>
                                             <td
@@ -95,7 +105,9 @@ const deleteCategory = (category) => {
 
                                                 <DangerButton
                                                     class="ml-3"
-                                                    @click="deleteCategory(category)"
+                                                    @click="
+                                                        deleteCategory(category)
+                                                    "
                                                     :class="{
                                                         'opacity-25':
                                                             category.processing,

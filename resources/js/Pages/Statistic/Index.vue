@@ -44,20 +44,7 @@ const props = defineProps({
                                     <!-- Left side - Icon and Title -->
                                     <div class="flex items-center">
                                         <div class="">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                class="w-6 h-6"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 0h14M12 17v2M12 5V3"
-                                                ></path>
-                                            </svg>
+                                            <span v-html="price.icon"></span>
                                         </div>
                                         <div class="ml-4 text-lg font-semibold">
                                             {{ price.category }}

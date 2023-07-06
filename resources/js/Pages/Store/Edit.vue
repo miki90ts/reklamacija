@@ -13,6 +13,10 @@ const props = defineProps({
 
 const form = useForm({
     title: props.store.data.title,
+    city: props.store.data.city,
+    address: props.store.data.address,
+    phone: props.store.data.phone,
+    email: props.store.data.email,
 });
 </script>
 
@@ -35,7 +39,10 @@ const form = useForm({
                                 <form
                                     @submit.prevent="
                                         form.patch(
-                                            route('prodavnice.update', store.data)
+                                            route(
+                                                'prodavnice.update',
+                                                store.data
+                                            )
                                         )
                                     "
                                     class="mt-6 space-y-6"
@@ -56,6 +63,80 @@ const form = useForm({
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.title"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="city" value="Grad" />
+
+                                        <TextInput
+                                            id="city"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            v-model="form.city"
+                                            required
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.city"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="address"
+                                            value="Adresa"
+                                        />
+
+                                        <TextInput
+                                            id="address"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            v-model="form.address"
+                                            required
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.address"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="phone"
+                                            value="Telefon"
+                                        />
+
+                                        <TextInput
+                                            id="phone"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            v-model="form.phone"
+                                            required
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.phone"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="email" value="Email" />
+
+                                        <TextInput
+                                            id="email"
+                                            type="email"
+                                            class="mt-1 block w-full"
+                                            v-model="form.email"
+                                            required
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.email"
                                         />
                                     </div>
 

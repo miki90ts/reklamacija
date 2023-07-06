@@ -11,7 +11,11 @@ class Store extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'city',
+        'address',
+        'phone',
+        'email',
     ];
 
     public function bills(): HasMany

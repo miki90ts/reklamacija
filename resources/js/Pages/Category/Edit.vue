@@ -13,6 +13,7 @@ const props = defineProps({
 
 const form = useForm({
     title: props.category.data.title,
+    icon: props.category.data.icon,
 });
 </script>
 
@@ -47,7 +48,7 @@ const form = useForm({
                                         <InputLabel for="title" value="Naziv" />
 
                                         <TextInput
-                                            id="name"
+                                            id="title"
                                             type="text"
                                             class="mt-1 block w-full"
                                             v-model="form.title"
@@ -59,6 +60,23 @@ const form = useForm({
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.title"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="icon" value="Ikona" />
+
+                                        <TextInput
+                                            id="icon"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            v-model="form.icon"
+                                            required
+                                        />
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.icon"
                                         />
                                     </div>
 
