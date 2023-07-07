@@ -106,7 +106,26 @@ const deleteBill = (bill) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ bill.purchased_at }}
+                                                    <div class="flex flex-col">
+                                                        <div>
+                                                            {{
+                                                                bill.expired_at
+                                                            }}
+                                                        </div>
+                                                        <div
+                                                            class="w-full h-4 bg-gray-200 rounded-full"
+                                                        >
+                                                            <div
+                                                                :class="`h-full bg-${bill.color}-500 rounded-full`"
+                                                                :style="`width: ${bill.percent}%;`"
+                                                            ></div>
+                                                        </div>
+                                                        <div>
+                                                            {{
+                                                                bill.expired_at_for_humans
+                                                            }}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
@@ -139,6 +158,9 @@ const deleteBill = (bill) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
+                                                    <div
+                                                        class="flex items-baseline"
+                                                    >
                                                         <Link
                                                             :href="`${route(
                                                                 'racuni.edit',
@@ -164,6 +186,7 @@ const deleteBill = (bill) => {
                                                         >
                                                             Obriši
                                                         </DangerButton>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </template>
