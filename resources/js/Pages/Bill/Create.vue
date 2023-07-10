@@ -177,13 +177,10 @@ function setFilteredProducts(data) {
                                             accept="image/*"
                                             id="photo"
                                         />
-                                        <progress
-                                            v-if="form.progress"
-                                            :value="form.progress.percentage"
-                                            max="100"
-                                        >
-                                            {{ form.progress.percentage }}%
-                                        </progress>
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.photo"
+                                        />
                                     </div>
 
                                     <div>
@@ -197,6 +194,11 @@ function setFilteredProducts(data) {
                                             :max-date="new Date()"
                                             required
                                         ></VueDatePicker>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.purchased_at"
+                                        />
                                     </div>
 
                                     <div>
