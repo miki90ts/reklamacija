@@ -38,7 +38,7 @@ const deleteStore = (store) => {
                                 :href="route('prodavnice.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Dodaj
+                                {{ __("helpers.add") }}
                             </Link>
                             <div class="overflow-x-auto mt-3">
                                 <table
@@ -113,7 +113,7 @@ const deleteStore = (store) => {
                                                     )}`"
                                                     class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                 >
-                                                    Izmeni
+                                                    {{ __("helpers.edit") }}
                                                 </Link>
 
                                                 <DangerButton
@@ -125,7 +125,7 @@ const deleteStore = (store) => {
                                                     }"
                                                     :disabled="store.processing"
                                                 >
-                                                    Obriši
+                                                    {{ __("helpers.delete") }}
                                                 </DangerButton>
                                             </td>
                                         </tr>

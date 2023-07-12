@@ -50,19 +50,19 @@ const showingNavigationDropdown = ref(false);
                                         :href="route('kategorije')"
                                         :active="route().current('kategorije')"
                                     >
-                                        Kategorije
+                                        {{ __("layouts.categories") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('proizvodi')"
                                         :active="route().current('proizvodi')"
                                     >
-                                        Produkti
+                                        {{ __("layouts.products") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('prodavnice')"
                                         :active="route().current('prodavnice')"
                                     >
-                                        Prodavnice
+                                        {{ __("layouts.stores") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('duzina_garancije')"
@@ -70,7 +70,7 @@ const showingNavigationDropdown = ref(false);
                                             route().current('duzina_garancije')
                                         "
                                     >
-                                        Dužina garancije
+                                        {{ __("layouts.warrantyLength") }}
                                     </NavLink>
                                 </template>
                             </div>
@@ -139,14 +139,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profil
+                                            {{ __("layouts.profile") }}
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Odjava
+                                            {{ __("layouts.logOut") }}
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -209,7 +209,7 @@ const showingNavigationDropdown = ref(false);
                             :href="route('racuni')"
                             :active="route().current('racuni')"
                         >
-                            Računi
+                            {{ __("layouts.bills") }}
                         </ResponsiveNavLink>
                     </div>
 
@@ -226,14 +226,14 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profil
+                                {{ __("layouts.profile") }}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Odjava
+                                {{ __("layouts.logOut") }}
                             </ResponsiveNavLink>
                         </div>
                     </div>

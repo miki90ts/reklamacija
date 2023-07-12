@@ -26,7 +26,7 @@ const deleteBill = (bill) => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Računi
+                {{ __("layouts.bills") }}
             </h2>
         </template>
 
@@ -39,7 +39,7 @@ const deleteBill = (bill) => {
                                 :href="route('racuni.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Dodaj
+                                {{ __("helpers.add") }}
                             </Link>
 
                             <div class="overflow-x-auto mt-3">
@@ -168,7 +168,11 @@ const deleteBill = (bill) => {
                                                             )}`"
                                                             class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                         >
-                                                            Izmeni
+                                                            {{
+                                                                __(
+                                                                    "helpers.edit"
+                                                                )
+                                                            }}
                                                         </Link>
 
                                                         <DangerButton
@@ -184,7 +188,11 @@ const deleteBill = (bill) => {
                                                                 bill.processing
                                                             "
                                                         >
-                                                            Obriši
+                                                            {{
+                                                                __(
+                                                                    "helpers.delete"
+                                                                )
+                                                            }}
                                                         </DangerButton>
                                                     </div>
                                                 </td>
