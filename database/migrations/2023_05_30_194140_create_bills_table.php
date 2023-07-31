@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('warranty_length_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->date('purchased_at');
             $table->string('photo');
+            $table->decimal('price', 16, 2);
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

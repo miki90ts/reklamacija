@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
-use App\Http\Requests\CategoryPatchRequest;
-use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\{StoreCategoryRequest,UpdateCategoryRequest};
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -40,7 +39,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryStoreRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         $category = Category::create($request->validated());
 
@@ -71,7 +70,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryPatchRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
 

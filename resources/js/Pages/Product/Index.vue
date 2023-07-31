@@ -87,7 +87,7 @@ const deleteProduct = (product) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ product.category.title }}
+                                                    {{ product.brand.title }}
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"

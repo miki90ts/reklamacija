@@ -9,14 +9,14 @@ import SelectInput from "@/Components/SelectInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
 defineProps({
-    categories: {
+    brands: {
         type: Object,
     },
 });
 
 const form = useForm({
     title: "",
-    category_id: "1",
+    brand_id: "1",
 });
 
 const submit = () => {
@@ -65,25 +65,25 @@ const submit = () => {
 
                                     <div>
                                         <InputLabel
-                                            for="category_id"
-                                            value="Kategorija"
+                                            for="brand_id"
+                                            value="Brend"
                                         />
 
                                         <SelectInput
-                                            v-model="form.category_id"
+                                            v-model="form.brand_id"
                                             keyIndex="id"
                                             valueIndex="id"
                                             labelIndex="title"
-                                            :data="categories.data"
+                                            :data="brands.data"
                                             :showChoose="false"
-                                            id="category_id"
+                                            id="brand_id"
                                             class="mt-1 block w-full"
                                             required
                                         ></SelectInput>
 
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.category_id"
+                                            :message="form.errors.brand_id"
                                         />
                                     </div>
 

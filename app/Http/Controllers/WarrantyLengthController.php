@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WarrantyLength;
 use App\Http\Resources\WarrantyLengthResource;
-use App\Http\Requests\WarrantyLengthPatchRequest;
-use App\Http\Requests\WarrantyLengthStoreRequest;
+use App\Http\Requests\{StoreWarrantyLengthRequest,UpdateWarrantyLengthRequest};
 
 class WarrantyLengthController extends Controller
 {
@@ -38,7 +37,7 @@ class WarrantyLengthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(WarrantyLengthStoreRequest $request)
+    public function store(StoreWarrantyLengthRequest $request)
     {
         WarrantyLength::create($request->validated());
 
@@ -69,7 +68,7 @@ class WarrantyLengthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(WarrantyLengthPatchRequest $request, WarrantyLength $warrantyLength)
+    public function update(UpdateWarrantyLengthRequest $request, WarrantyLength $warrantyLength)
     {
         $warrantyLength->update($request->validated());
     

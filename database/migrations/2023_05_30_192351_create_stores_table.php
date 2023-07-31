@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('city', 100);
+            $table->string('address', 100);
+            $table->string('phone', 30);
+            $table->string('email', 100);
             $table->timestamps();
         });
     }

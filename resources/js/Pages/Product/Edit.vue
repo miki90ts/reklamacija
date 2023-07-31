@@ -10,12 +10,12 @@ import { Head, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     product: Object,
-    categories: Object,
+    brands: Object,
 });
 
 const form = useForm({
     title: props.product.data.title,
-    category_id: props.product.data.category.id.toString(),
+    brand_id: props.product.data.brand.id.toString(),
 });
 </script>
 
@@ -67,25 +67,25 @@ const form = useForm({
 
                                     <div>
                                         <InputLabel
-                                            for="category_id"
-                                            value="Kategorija"
+                                            for="brand_id"
+                                            value="Brend"
                                         />
 
                                         <SelectInput
-                                            v-model="form.category_id"
+                                            v-model="form.brand_id"
                                             keyIndex="id"
                                             valueIndex="id"
                                             labelIndex="title"
-                                            :data="categories.data"
+                                            :data="brands.data"
                                             :showChoose="false"
-                                            id="category_id"
+                                            id="brand_id"
                                             class="mt-1 block w-full"
                                             required
                                         ></SelectInput>
 
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.category_id"
+                                            :message="form.errors.brand_id"
                                         />
                                     </div>
 

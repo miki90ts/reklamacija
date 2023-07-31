@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WarrantyLengthStoreRequest extends FormRequest
+class UpdateStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +21,12 @@ class WarrantyLengthStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+       return [
             'title' => ['required'],
-            'months' => ['required', 'numeric']
+            'city' => ['required'],
+            'address' => ['required'],
+            'phone' => ['required'],
+            'email' => ['required','email'],
         ];
     }
 }

@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\{BillStoreRequest,BillPatchRequest};
-use App\Models\{Bill,Store,Category,Product,WarrantyLength};
-use App\Http\Resources\{BillResource,StoreResource,CategoryResource,ProductResource,WarrantyLengthResource};
+use App\Http\Requests\{StoreBillRequest,UpdateBillRequest};
+use App\Models\{Bill,Store,Category,Product,WarrantyLength,Brand};
+use App\Http\Resources\{BillResource,StoreResource,CategoryResource,ProductResource,WarrantyLengthResource,BrandResource};
 
 class BillController extends Controller
 {
@@ -30,7 +30,7 @@ class BillController extends Controller
            
             'bills' => BillResource::collection(
                 Bill::whereBelongsTo(auth()->user())
-                    ->with(['store', 'product.category','warrantyLength'])
+                    ->with(['store', 'product.brand.category','warrantyLength'])
                     ->oldest()
                     ->paginate(self::BILLS_PER_PAGE)
             ),
@@ -44,6 +44,7 @@ class BillController extends Controller
     {
         return inertia()->render('Bill/Create',[
             'categories' => CategoryResource::collection(Category::all()),
+            'brands' => BrandResource::collection(Brand::all()),
             'stores' => StoreResource::collection(Store::all()),
             'products' => ProductResource::collection(Product::all()),
             'warrantyLengths' => WarrantyLengthResource::collection(WarrantyLength::all()),
@@ -53,7 +54,7 @@ class BillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BillStoreRequest $request)
+    public function store(StoreBillRequest $request)
     { 
         $validatedData = $request->validated();
       
@@ -92,9 +93,10 @@ class BillController extends Controller
     public function edit(Bill $bill)
     {
         return inertia()->render('Bill/Edit', [
-            'bill' => Bill::with('product.category')->findOrFail($bill->id),
+            'bill' => Bill::with('product.brand.category')->findOrFail($bill->id),
             //'category' => Category::findOrFail($bill->product->category_id),
             'categories' => CategoryResource::collection(Category::all()),
+            'brands' => BrandResource::collection(Brand::all()),
             'stores' => StoreResource::collection(Store::all()),
             'products' => ProductResource::collection(Product::all()),
             'warrantyLengths' => WarrantyLengthResource::collection(WarrantyLength::all()),
@@ -104,7 +106,7 @@ class BillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(BillPatchRequest $request, Bill $bill)
+    public function update(UpdateBillRequest $request, Bill $bill)
     {   
         $validatedData = $request->validated();
       

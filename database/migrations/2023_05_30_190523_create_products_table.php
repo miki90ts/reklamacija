@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('brand_id')->constrained()->restrictOnDelete();
             $table->string('title');
+            $table->string('image',1000)->nullable();
             $table->timestamps();
         });
     }

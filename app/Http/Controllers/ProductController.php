@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Product,Category};
-use App\Http\Requests\{ProductPatchRequest,ProductStoreRequest};
-use App\Http\Resources\{ProductResource,CategoryResource};
+use App\Models\{Product,Brand};
+use App\Http\Resources\{ProductResource,BrandResource};
+use App\Http\Requests\{UpdateProductRequest,StoreProductRequest};
 
 class ProductController extends Controller
 {
@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         return inertia()->render('Product/Index', [
-            'products' => ProductResource::collection(Product::with(['category'])->paginate(10)),
+            'products' => ProductResource::collection(Product::with(['brand'])->paginate(10)),
         ]);
     }
 
@@ -33,20 +33,20 @@ class ProductController extends Controller
     public function create()
     {
         return inertia()->render('Product/Create',[
-            'categories' => CategoryResource::collection(Category::all()),
+            'brands' => BrandResource::collection(Brand::all()),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductStoreRequest $request)
+    public function store(StoreProductRequest $request)
     {
         $validatedData = $request->validated();
     
-        $product = Category::find($validatedData['category_id'])
+        Brand::find($validatedData['brand_id'])
             ->products()
-            ->create(['title' => $validatedData['title']]);
+            ->create($validatedData);
        
         return redirect(route('proizvodi'))->with('message', [
             'body' => 'Proizvod kreiran',
@@ -68,8 +68,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return inertia()->render('Product/Edit', [
-            'product' => new ProductResource(Product::with(['category'])->findOrFail($product->id)),
-            'categories' => CategoryResource::collection(Category::all()),
+            'product' => new ProductResource(Product::with(['brand'])->findOrFail($product->id)),
+            'brands' => BrandResource::collection(Brand::all()),
             //'product' => $product, jedan kveri manje implicit modal biding 
         ]);
     }
@@ -77,14 +77,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductPatchRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $validatedData = $request->validated();
     
-        $product->update([
-            'title' => $validatedData['title'],
-            'category_id' => $validatedData['category_id']
-        ]);
+        $product->update($validatedData);
        
         return redirect(route('proizvodi'))->with('message', [
             'body' => 'Proizvod izmenjen',

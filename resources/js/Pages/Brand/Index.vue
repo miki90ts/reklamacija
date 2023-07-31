@@ -136,7 +136,7 @@ const deleteBrand = (brand) => {
                                             <tr>
                                                 <td
                                                     class="text-center p-3"
-                                                    colspan="3"
+                                                    colspan="4"
                                                 >
                                                     Nema podataka
                                                 </td>

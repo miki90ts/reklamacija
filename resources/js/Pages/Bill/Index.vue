@@ -58,6 +58,9 @@ const deleteBill = (bill) => {
                                                 Proizvod
                                             </th>
                                             <th class="py-2 px-4 border-b">
+                                                Brend
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
                                                 Kategorija
                                             </th>
                                             <th class="py-2 px-4 border-b">
@@ -99,8 +102,15 @@ const deleteBill = (bill) => {
                                                     class="py-2 px-4 border-b text-center"
                                                 >
                                                     {{
-                                                        bill.product.category
-                                                            .title
+                                                        bill.product.brand.title
+                                                    }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{
+                                                        bill.product.brand
+                                                            .category.title
                                                     }}
                                                 </td>
                                                 <td
@@ -202,7 +212,7 @@ const deleteBill = (bill) => {
                                             <tr>
                                                 <td
                                                     class="text-center p-3"
-                                                    colspan="6"
+                                                    colspan="9"
                                                 >
                                                     Nemate računa
                                                 </td>
