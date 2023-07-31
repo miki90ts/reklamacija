@@ -53,70 +53,87 @@ const deleteProduct = (product) => {
                                                 Naziv
                                             </th>
                                             <th class="py-2 px-4 border-b">
-                                                Kategorija
+                                                Brend
                                             </th>
                                             <th class="py-2 px-4 border-b"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr
-                                            v-for="(
-                                                product, index
-                                            ) in products.data"
-                                            :key="product.id"
-                                        >
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
+                                        <template v-if="products.data.length">
+                                            <tr
+                                                v-for="(
+                                                    product, index
+                                                ) in products.data"
+                                                :key="product.id"
                                             >
-                                                {{
-                                                    (products.meta
-                                                        .current_page -
-                                                        1) *
-                                                        products.meta.per_page +
-                                                    index +
-                                                    1
-                                                }}.
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ product.title }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ product.category.title }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                <Link
-                                                    :href="`${route(
-                                                        'proizvodi.edit',
-                                                        product
-                                                    )}`"
-                                                    class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ __("helpers.edit") }}
-                                                </Link>
+                                                    {{
+                                                        (products.meta
+                                                            .current_page -
+                                                            1) *
+                                                            products.meta
+                                                                .per_page +
+                                                        index +
+                                                        1
+                                                    }}.
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ product.title }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ product.category.title }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    <Link
+                                                        :href="`${route(
+                                                            'proizvodi.edit',
+                                                            product
+                                                        )}`"
+                                                        class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                    >
+                                                        {{ __("helpers.edit") }}
+                                                    </Link>
 
-                                                <DangerButton
-                                                    class="ml-3"
-                                                    @click="
-                                                        deleteProduct(product)
-                                                    "
-                                                    :class="{
-                                                        'opacity-25':
-                                                            product.processing,
-                                                    }"
-                                                    :disabled="
-                                                        product.processing
-                                                    "
+                                                    <DangerButton
+                                                        class="ml-3"
+                                                        @click="
+                                                            deleteProduct(
+                                                                product
+                                                            )
+                                                        "
+                                                        :class="{
+                                                            'opacity-25':
+                                                                product.processing,
+                                                        }"
+                                                        :disabled="
+                                                            product.processing
+                                                        "
+                                                    >
+                                                        {{
+                                                            __("helpers.delete")
+                                                        }}
+                                                    </DangerButton>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
+                                            <tr>
+                                                <td
+                                                    class="text-center p-3"
+                                                    colspan="3"
                                                 >
-                                                    {{ __("helpers.delete") }}
-                                                </DangerButton>
-                                            </td>
-                                        </tr>
+                                                    Nema podataka
+                                                </td>
+                                            </tr>
+                                        </template>
                                     </tbody>
                                 </table>
 

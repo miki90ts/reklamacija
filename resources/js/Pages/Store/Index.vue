@@ -65,70 +65,90 @@ const deleteStore = (store) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr
-                                            v-for="(
-                                                store, index
-                                            ) in stores.data"
-                                            :key="store.id"
-                                        >
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
+                                        <template v-if="stores.data.length">
+                                            <tr
+                                                v-for="(
+                                                    store, index
+                                                ) in stores.data"
+                                                :key="store.id"
                                             >
-                                                {{
-                                                    (stores.meta.current_page -
-                                                        1) *
-                                                        stores.meta.per_page +
-                                                    index +
-                                                    1
-                                                }}.
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ store.title }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ store.city }},
-                                                {{ store.address }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ store.phone }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                {{ store.email }}
-                                            </td>
-                                            <td
-                                                class="py-2 px-4 border-b text-center"
-                                            >
-                                                <Link
-                                                    :href="`${route(
-                                                        'prodavnice.edit',
-                                                        store
-                                                    )}`"
-                                                    class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ __("helpers.edit") }}
-                                                </Link>
+                                                    {{
+                                                        (stores.meta
+                                                            .current_page -
+                                                            1) *
+                                                            stores.meta
+                                                                .per_page +
+                                                        index +
+                                                        1
+                                                    }}.
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ store.title }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ store.city }},
+                                                    {{ store.address }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ store.phone }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ store.email }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    <Link
+                                                        :href="`${route(
+                                                            'prodavnice.edit',
+                                                            store
+                                                        )}`"
+                                                        class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                    >
+                                                        {{ __("helpers.edit") }}
+                                                    </Link>
 
-                                                <DangerButton
-                                                    class="ml-3"
-                                                    @click="deleteStore(store)"
-                                                    :class="{
-                                                        'opacity-25':
-                                                            store.processing,
-                                                    }"
-                                                    :disabled="store.processing"
+                                                    <DangerButton
+                                                        class="ml-3"
+                                                        @click="
+                                                            deleteStore(store)
+                                                        "
+                                                        :class="{
+                                                            'opacity-25':
+                                                                store.processing,
+                                                        }"
+                                                        :disabled="
+                                                            store.processing
+                                                        "
+                                                    >
+                                                        {{
+                                                            __("helpers.delete")
+                                                        }}
+                                                    </DangerButton>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
+                                            <tr>
+                                                <td
+                                                    class="text-center p-3"
+                                                    colspan="5"
                                                 >
-                                                    {{ __("helpers.delete") }}
-                                                </DangerButton>
-                                            </td>
-                                        </tr>
+                                                    Nema podataka
+                                                </td>
+                                            </tr>
+                                        </template>
                                     </tbody>
                                 </table>
 

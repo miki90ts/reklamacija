@@ -27,39 +27,48 @@ const props = defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
-                            <div>
-                                <DonutChart
-                                    :priceByCategory="priceByCategory"
-                                />
-                            </div>
+                            <template v-if="priceByCategory.length">
+                                <div>
+                                    <DonutChart
+                                        :priceByCategory="priceByCategory"
+                                    />
+                                </div>
 
-                            <div
-                                v-for="price in priceByCategory"
-                                :key="price.id"
-                                class="my-4"
-                            >
                                 <div
-                                    class="flex justify-between p-5 bg-gray-100 shadow-lg rounded-lg"
+                                    v-for="price in priceByCategory"
+                                    :key="price.id"
+                                    class="my-4"
                                 >
-                                    <!-- Left side - Icon and Title -->
-                                    <div class="flex items-center">
-                                        <div class="">
-                                            <span v-html="price.icon"></span>
+                                    <div
+                                        class="flex justify-between p-5 bg-gray-100 shadow-lg rounded-lg"
+                                    >
+                                        <!-- Left side - Icon and Title -->
+                                        <div class="flex items-center">
+                                            <div class="">
+                                                <span
+                                                    v-html="price.icon"
+                                                ></span>
+                                            </div>
+                                            <div
+                                                class="ml-4 text-lg font-semibold"
+                                            >
+                                                {{ price.category }}
+                                            </div>
                                         </div>
-                                        <div class="ml-4 text-lg font-semibold">
-                                            {{ price.category }}
-                                        </div>
-                                    </div>
-                                    <!-- Right side - Price and Percentage -->
-                                    <div class="text-right">
-                                        <div class="text-lg font-semibold">
-                                            {{ price.total_price }}
-                                        </div>
-                                        <div class="text-sm text-gray-500">
-                                            {{ price.percentage }}
+                                        <!-- Right side - Price and Percentage -->
+                                        <div class="text-right">
+                                            <div class="text-lg font-semibold">
+                                                {{ price.total_price }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ price.percentage }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </template>
+                            <div v-else>
+                                <h2>Nemate računa</h2>
                             </div>
                         </div>
                     </div>

@@ -15,8 +15,8 @@ class Category extends Model
         'icon',
     ];
 
-    public function products(): HasMany
+    public function brands(): HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Brand::class);
     }
 }

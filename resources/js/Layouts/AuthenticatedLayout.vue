@@ -53,6 +53,12 @@ const showingNavigationDropdown = ref(false);
                                         {{ __("layouts.categories") }}
                                     </NavLink>
                                     <NavLink
+                                        :href="route('brands')"
+                                        :active="route().current('brands')"
+                                    >
+                                        {{ __("layouts.brands") }}
+                                    </NavLink>
+                                    <NavLink
                                         :href="route('proizvodi')"
                                         :active="route().current('proizvodi')"
                                     >

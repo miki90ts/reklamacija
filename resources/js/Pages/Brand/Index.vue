@@ -6,26 +6,26 @@ import { useForm } from "@inertiajs/vue3";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
-    kategorije: {
+    brands: {
         type: Object,
     },
 });
 
 const form = useForm({});
 
-const deleteCategory = (category) => {
-    category.processing = true;
-    form.delete(route("kategorije.destroy", category));
+const deleteBrand = (brand) => {
+    brand.processing = true;
+    form.delete(route("brands.destroy", brand));
 };
 </script>
 
 <template>
-    <Head title="Kategorije" />
+    <Head title="Brendovi" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Kategorije
+                Brendovi
             </h2>
         </template>
 
@@ -35,7 +35,7 @@ const deleteCategory = (category) => {
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
                             <Link
-                                :href="route('kategorije.create')"
+                                :href="route('brands.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 {{ __("helpers.add") }}
@@ -53,27 +53,30 @@ const deleteCategory = (category) => {
                                                 Ikona
                                             </th>
                                             <th class="py-2 px-4 border-b">
+                                                Kategorija
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
                                                 Naziv
                                             </th>
                                             <th class="py-2 px-4 border-b"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="kategorije.data.length">
+                                        <template v-if="brands.data.length">
                                             <tr
                                                 v-for="(
-                                                    category, index
-                                                ) in kategorije.data"
-                                                :key="category.id"
+                                                    brand, index
+                                                ) in brands.data"
+                                                :key="brand.id"
                                             >
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
                                                     {{
-                                                        (kategorije.meta
+                                                        (brands.meta
                                                             .current_page -
                                                             1) *
-                                                            kategorije.meta
+                                                            brands.meta
                                                                 .per_page +
                                                         index +
                                                         1
@@ -83,21 +86,26 @@ const deleteCategory = (category) => {
                                                     class="py-2 px-4 border-b text-center"
                                                 >
                                                     <span
-                                                        v-html="category.icon"
+                                                        v-html="brand.icon"
                                                     ></span>
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ category.title }}
+                                                    {{ brand.category.title }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    {{ brand.title }}
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
                                                     <Link
                                                         :href="`${route(
-                                                            'kategorije.edit',
-                                                            category
+                                                            'brands.edit',
+                                                            brand
                                                         )}`"
                                                         class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                     >
@@ -107,16 +115,14 @@ const deleteCategory = (category) => {
                                                     <DangerButton
                                                         class="ml-3"
                                                         @click="
-                                                            deleteCategory(
-                                                                category
-                                                            )
+                                                            deleteBrand(brand)
                                                         "
                                                         :class="{
                                                             'opacity-25':
-                                                                category.processing,
+                                                                brand.processing,
                                                         }"
                                                         :disabled="
-                                                            category.processing
+                                                            brand.processing
                                                         "
                                                     >
                                                         {{
@@ -139,7 +145,7 @@ const deleteCategory = (category) => {
                                     </tbody>
                                 </table>
 
-                                <Pagination :pagination="kategorije.meta" />
+                                <Pagination :pagination="brands.meta" />
                             </div>
                         </div>
                     </div>
