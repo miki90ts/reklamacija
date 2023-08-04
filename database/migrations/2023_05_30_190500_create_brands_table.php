@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bills', function (Blueprint $table) {
-            $table->decimal('price', 16, 2)->after('photo');
-            $table->text('note')->after('price')->nullable();
+        Schema::create('brands', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained()->restrictOnDelete();
+            $table->string('title');
+            $table->string('icon',1000);
+            $table->timestamps();
         });
     }
 
@@ -22,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bills', function (Blueprint $table) {
-            $table->dropColumn(['price', 'note']);
-        });
+        Schema::dropIfExists('brands');
     }
 };

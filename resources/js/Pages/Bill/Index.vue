@@ -26,7 +26,7 @@ const deleteBill = (bill) => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Računi
+                {{ __("layouts.bills") }}
             </h2>
         </template>
 
@@ -39,7 +39,7 @@ const deleteBill = (bill) => {
                                 :href="route('racuni.create')"
                                 class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Dodaj
+                                {{ __("helpers.add") }}
                             </Link>
 
                             <div class="overflow-x-auto mt-3">
@@ -56,6 +56,9 @@ const deleteBill = (bill) => {
                                             </th>
                                             <th class="py-2 px-4 border-b">
                                                 Proizvod
+                                            </th>
+                                            <th class="py-2 px-4 border-b">
+                                                Brend
                                             </th>
                                             <th class="py-2 px-4 border-b">
                                                 Kategorija
@@ -99,14 +102,40 @@ const deleteBill = (bill) => {
                                                     class="py-2 px-4 border-b text-center"
                                                 >
                                                     {{
-                                                        bill.product.category
-                                                            .title
+                                                        bill.product.brand.title
                                                     }}
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    {{ bill.purchased_at }}
+                                                    {{
+                                                        bill.product.brand
+                                                            .category.title
+                                                    }}
+                                                </td>
+                                                <td
+                                                    class="py-2 px-4 border-b text-center"
+                                                >
+                                                    <div class="flex flex-col">
+                                                        <div>
+                                                            {{
+                                                                bill.expired_at
+                                                            }}
+                                                        </div>
+                                                        <div
+                                                            class="w-full h-4 bg-gray-200 rounded-full"
+                                                        >
+                                                            <div
+                                                                :class="`h-full bg-${bill.color}-500 rounded-full`"
+                                                                :style="`width: ${bill.percent}%;`"
+                                                            ></div>
+                                                        </div>
+                                                        <div>
+                                                            {{
+                                                                bill.expired_at_for_humans
+                                                            }}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
@@ -139,6 +168,9 @@ const deleteBill = (bill) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
+                                                    <div
+                                                        class="flex items-baseline"
+                                                    >
                                                         <Link
                                                             :href="`${route(
                                                                 'racuni.edit',
@@ -146,7 +178,11 @@ const deleteBill = (bill) => {
                                                             )}`"
                                                             class="inline-block text-sm mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                                         >
-                                                            Izmeni
+                                                            {{
+                                                                __(
+                                                                    "helpers.edit"
+                                                                )
+                                                            }}
                                                         </Link>
 
                                                         <DangerButton
@@ -162,8 +198,13 @@ const deleteBill = (bill) => {
                                                                 bill.processing
                                                             "
                                                         >
-                                                            Obriši
+                                                            {{
+                                                                __(
+                                                                    "helpers.delete"
+                                                                )
+                                                            }}
                                                         </DangerButton>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </template>
@@ -171,7 +212,7 @@ const deleteBill = (bill) => {
                                             <tr>
                                                 <td
                                                     class="text-center p-3"
-                                                    colspan="6"
+                                                    colspan="9"
                                                 >
                                                     Nemate računa
                                                 </td>

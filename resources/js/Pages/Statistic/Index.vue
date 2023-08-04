@@ -18,7 +18,7 @@ const props = defineProps({
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Statistika
+                {{ __("layouts.statistics") }}
             </h2>
         </template>
 
@@ -27,52 +27,48 @@ const props = defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="container mx-auto">
-                            <div>
-                                <DonutChart
-                                    :priceByCategory="priceByCategory"
-                                />
-                            </div>
+                            <template v-if="priceByCategory.length">
+                                <div>
+                                    <DonutChart
+                                        :priceByCategory="priceByCategory"
+                                    />
+                                </div>
 
-                            <div
-                                v-for="price in priceByCategory"
-                                :key="price.id"
-                                class="my-4"
-                            >
                                 <div
-                                    class="flex justify-between p-5 bg-gray-100 shadow-lg rounded-lg"
+                                    v-for="price in priceByCategory"
+                                    :key="price.id"
+                                    class="my-4"
                                 >
-                                    <!-- Left side - Icon and Title -->
-                                    <div class="flex items-center">
-                                        <div class="">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                class="w-6 h-6"
+                                    <div
+                                        class="flex justify-between p-5 bg-gray-100 shadow-lg rounded-lg"
+                                    >
+                                        <!-- Left side - Icon and Title -->
+                                        <div class="flex items-center">
+                                            <div class="">
+                                                <span
+                                                    v-html="price.icon"
+                                                ></span>
+                                            </div>
+                                            <div
+                                                class="ml-4 text-lg font-semibold"
                                             >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 0h14M12 17v2M12 5V3"
-                                                ></path>
-                                            </svg>
+                                                {{ price.category }}
+                                            </div>
                                         </div>
-                                        <div class="ml-4 text-lg font-semibold">
-                                            {{ price.category }}
-                                        </div>
-                                    </div>
-                                    <!-- Right side - Price and Percentage -->
-                                    <div class="text-right">
-                                        <div class="text-lg font-semibold">
-                                            {{ price.total_price }}
-                                        </div>
-                                        <div class="text-sm text-gray-500">
-                                            {{ price.percentage }}
+                                        <!-- Right side - Price and Percentage -->
+                                        <div class="text-right">
+                                            <div class="text-lg font-semibold">
+                                                {{ price.total_price }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ price.percentage }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </template>
+                            <div v-else>
+                                <h2>Nemate računa</h2>
                             </div>
                         </div>
                     </div>

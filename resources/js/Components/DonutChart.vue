@@ -1,5 +1,7 @@
 <template>
-    <Doughnut id="my-chart-id" :options="chartOptions" :data="chartData" />
+    <div>
+        <Doughnut :options="chartOptions" :data="chartData" />
+    </div>
 </template>
 
 <script setup>

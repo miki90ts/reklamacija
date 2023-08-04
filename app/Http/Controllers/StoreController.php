@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Resources\StoreResource;
-use App\Http\Requests\StorePatchRequest;
-use App\Http\Requests\StoreStoreRequest;
+use App\Http\Requests\{StoreStoreRequest,UpdateStoreRequest};
 
 class StoreController extends Controller
 {
@@ -70,7 +69,7 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StorePatchRequest $request, Store $store)
+    public function update(UpdateStoreRequest $request, Store $store)
     {
         $store->update($request->validated());
     

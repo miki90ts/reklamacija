@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->restrictOnDelete();
+            $table->foreignId('brand_id')->constrained()->restrictOnDelete();
             $table->string('title');
+            $table->string('image',1000)->nullable();
             $table->timestamps();
         });
     }

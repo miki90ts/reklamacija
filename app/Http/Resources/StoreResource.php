@@ -13,7 +13,14 @@ class StoreResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
-        return $this->only('id', 'title');
+    { 
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'city' => $this->city,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'email' => $this->email,
+        ];
     }
 }

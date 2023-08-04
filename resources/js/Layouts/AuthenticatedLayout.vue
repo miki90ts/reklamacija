@@ -5,7 +5,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 const showingNavigationDropdown = ref(false);
 </script>
@@ -13,7 +13,9 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-            <nav class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl">
+            <nav
+                class="bg-gradient-to-r from-blue-300 to-blue-500 p-4 shadow-2xl"
+            >
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between">
@@ -35,32 +37,38 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('racuni')"
                                     :active="route().current('racuni')"
                                 >
-                                    Računi
+                                    {{ __("layouts.bills") }}
                                 </NavLink>
                                 <NavLink
                                     :href="route('statistika')"
                                     :active="route().current('statistika')"
                                 >
-                                    Statistika
+                                    {{ __("layouts.statistics") }}
                                 </NavLink>
                                 <template v-if="$page.props.auth.user.admin">
                                     <NavLink
                                         :href="route('kategorije')"
                                         :active="route().current('kategorije')"
                                     >
-                                        Kategorije
+                                        {{ __("layouts.categories") }}
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('brands')"
+                                        :active="route().current('brands')"
+                                    >
+                                        {{ __("layouts.brands") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('proizvodi')"
                                         :active="route().current('proizvodi')"
                                     >
-                                        Produkti
+                                        {{ __("layouts.products") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('prodavnice')"
                                         :active="route().current('prodavnice')"
                                     >
-                                        Prodavnice
+                                        {{ __("layouts.stores") }}
                                     </NavLink>
                                     <NavLink
                                         :href="route('duzina_garancije')"
@@ -68,13 +76,41 @@ const showingNavigationDropdown = ref(false);
                                             route().current('duzina_garancije')
                                         "
                                     >
-                                        Dužina garancije
+                                        {{ __("layouts.warrantyLength") }}
                                     </NavLink>
                                 </template>
                             </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
+                            <!-- Language Dropdown -->
+                            <div class="ml-3 relative">
+                                <select
+                                    name="language"
+                                    id="language"
+                                    v-on:change="
+                                        router.post(
+                                            route('language.store', {
+                                                language: $event.target.value,
+                                            })
+                                        )
+                                    "
+                                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm py-1"
+                                >
+                                    <option
+                                        :value="language.value"
+                                        v-for="language in $page.props.languages
+                                            .data"
+                                        :key="language.value"
+                                        :selected="
+                                            language.value ===
+                                            $page.props.language
+                                        "
+                                    >
+                                        {{ language.label }}
+                                    </option>
+                                </select>
+                            </div>
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
@@ -84,7 +120,10 @@ const showingNavigationDropdown = ref(false);
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-gray-200 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                            <i class="fa-solid fa-user px-2 mb-1"></i> {{ $page.props.auth.user.name }}
+                                                <i
+                                                    class="fa-solid fa-user px-2 mb-1"
+                                                ></i>
+                                                {{ $page.props.auth.user.name }}
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -106,14 +145,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profil
+                                            {{ __("layouts.profile") }}
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Odjava
+                                            {{ __("layouts.logOut") }}
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -176,7 +215,7 @@ const showingNavigationDropdown = ref(false);
                             :href="route('racuni')"
                             :active="route().current('racuni')"
                         >
-                            Računi
+                            {{ __("layouts.bills") }}
                         </ResponsiveNavLink>
                     </div>
 
@@ -193,14 +232,14 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profil
+                                {{ __("layouts.profile") }}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Odjava
+                                {{ __("layouts.logOut") }}
                             </ResponsiveNavLink>
                         </div>
                     </div>
@@ -208,8 +247,11 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-gradient-to-r from-orange-400 to-orange-500 shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto  py-6 px-4 sm:px-6 lg:px-8">
+            <header
+                class="bg-gradient-to-r from-orange-400 to-orange-500 shadow"
+                v-if="$slots.header"
+            >
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>

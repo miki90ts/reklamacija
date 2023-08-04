@@ -27,6 +27,9 @@ const props = defineProps({
     categories: {
         type: Object,
     },
+    brands: {
+        type: Object,
+    },
     stores: {
         type: Object,
     },
@@ -40,6 +43,7 @@ const props = defineProps({
 
 const form = useForm({
     category_id: "",
+    brand_id: "",
     product_id: "",
     store_id: "",
     photo: "",
@@ -53,18 +57,32 @@ const submit = () => {
     form.post(route("racuni.store"));
 };
 
-const filteredProducts = computed(() => {
+const filteredBrands = computed(() => {
     if (form.category_id) {
+        return Object.values(props.brands.data).filter(
+            (brand) => brand.category_id === Number(form.category_id)
+        );
+    }
+
+    return Object.values(props.brands.data);
+});
+
+const filteredProducts = computed(() => {
+    if (form.brand_id) {
         return Object.values(props.products.data).filter(
-            (product) => product.category_id === Number(form.category_id)
+            (product) => product.brand_id === Number(form.brand_id)
         );
     }
 
     return Object.values(props.products.data);
 });
 
-function setFilteredProducts(data) {
+function setFilteredBrands(data) {
     form.category_id = data;
+}
+
+function setFilteredProducts(data) {
+    form.brand_id = data;
 }
 </script>
 
@@ -74,7 +92,7 @@ function setFilteredProducts(data) {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Unos Proizvoda
+                Unos računa
             </h2>
         </template>
 
@@ -105,13 +123,40 @@ function setFilteredProducts(data) {
                                             class="mt-1 block w-full"
                                             required
                                             @update:modelValue="
-                                                setFilteredProducts
+                                                setFilteredBrands
                                             "
                                         ></SelectInput>
 
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.category_id"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="brand_id"
+                                            value="Brend"
+                                        />
+
+                                        <SelectInput
+                                            v-model="form.brand_id"
+                                            keyIndex="id"
+                                            valueIndex="id"
+                                            labelIndex="title"
+                                            :data="filteredBrands"
+                                            :showChoose="true"
+                                            id="brand_id"
+                                            class="mt-1 block w-full"
+                                            required
+                                            @update:modelValue="
+                                                setFilteredProducts
+                                            "
+                                        ></SelectInput>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.brand_id"
                                         />
                                     </div>
 
@@ -138,6 +183,7 @@ function setFilteredProducts(data) {
                                             :message="form.errors.product_id"
                                         />
                                     </div>
+
                                     <div>
                                         <InputLabel
                                             for="store_id"
@@ -177,13 +223,10 @@ function setFilteredProducts(data) {
                                             accept="image/*"
                                             id="photo"
                                         />
-                                        <progress
-                                            v-if="form.progress"
-                                            :value="form.progress.percentage"
-                                            max="100"
-                                        >
-                                            {{ form.progress.percentage }}%
-                                        </progress>
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.photo"
+                                        />
                                     </div>
 
                                     <div>
@@ -197,6 +240,11 @@ function setFilteredProducts(data) {
                                             :max-date="new Date()"
                                             required
                                         ></VueDatePicker>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.purchased_at"
+                                        />
                                     </div>
 
                                     <div>

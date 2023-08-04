@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WarrantyLengthPatchRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,8 @@ class WarrantyLengthPatchRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'months' => ['required', 'numeric']
+            'brand_id' => ['required'],
+            'image' => ['nullable', 'string'],
         ];
     }
 }

@@ -4,10 +4,12 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LanguageStoreController;
 use App\Http\Controllers\StatisticIndexController;
 use App\Http\Controllers\WarrantyLengthController;
 
@@ -31,6 +33,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/language', LanguageStoreController::class)->name('language.store');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -49,6 +53,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/kategorije/{category}', [CategoryController::class, 'edit'])->name('kategorije.edit');
     Route::patch('/kategorije/{category}', [CategoryController::class, 'update'])->name('kategorije.update'); 
     Route::delete('/kategorije/{category}', [CategoryController::class, 'destroy'])->name('kategorije.destroy'); 
+
+    Route::get('/brands', [BrandController::class, 'index'])->name('brands');
+    Route::post('/brands/sacuvaj', [BrandController::class, 'store'])->name('brands.store');
+    Route::get('/brands/unos', [BrandController::class, 'create'])->name('brands.create');
+    Route::get('/brands/{brand}', [BrandController::class, 'edit'])->name('brands.edit');
+    Route::patch('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update'); 
+    Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy'); 
 
     Route::get('/prodavnice', [StoreController::class, 'index'])->name('prodavnice');
     Route::post('/prodavnice/sacuvaj', [StoreController::class, 'store'])->name('prodavnice.store');
