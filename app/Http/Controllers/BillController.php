@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -24,15 +25,32 @@ class BillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia()->render('Bill/Index', [
-           
+            'query' => (object) $request->query(),
+
             'bills' => BillResource::collection(
                 Bill::whereBelongsTo(auth()->user())
                     ->with(['store', 'product.brand.category','warrantyLength'])
+                    ->when($request->categories, function ($query) use ($request){
+                        $query->whereHas('product.brand.category', function ($query) use ($request) {
+                            $query->whereIn('categories.id', explode(',', $request->categories));
+                        });
+                    })
+                    ->when($request->brands, function ($query) use ($request){
+                        $query->whereHas('product.brand', function ($query) use ($request) {
+                            $query->whereIn('brands.id', explode(',', $request->brands));
+                        });
+                    })
                     ->oldest()
                     ->paginate(self::BILLS_PER_PAGE)
+                    ->appends($request->query())
+            ),
+            'searchBills' => BillResource::collection(
+                Bill::whereBelongsTo(auth()->user())
+                    ->with(['store', 'product.brand.category','warrantyLength'])
+                    ->get()
             ),
         ]);
     }
