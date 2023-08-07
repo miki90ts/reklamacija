@@ -423,10 +423,18 @@ const filterPrice = (value) => {
                                 <div class="container mx-auto">
                                     <Link
                                         :href="route('racuni.create')"
-                                        class="w-14 text-sm my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        class="w-14 text-sm my-3 mr-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                     >
                                         {{ __("helpers.add") }}
                                     </Link>
+                                    <a
+                                        :href="route('bill.export.pdf')"
+                                        class="w-14 text-sm my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        target="_blank"
+                                    >
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                        PDF
+                                    </a>
 
                                     <div class="overflow-x-auto mt-3">
                                         <table

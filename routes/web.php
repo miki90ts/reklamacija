@@ -9,6 +9,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BillExportPdfController;
 use App\Http\Controllers\LanguageStoreController;
 use App\Http\Controllers\StatisticIndexController;
 use App\Http\Controllers\WarrantyLengthController;
@@ -83,6 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/duzina_garancije/{warrantyLength}', [WarrantyLengthController::class, 'destroy'])->name('duzina_garancije.destroy'); 
     
     Route::get('/statistika', StatisticIndexController::class)->name('statistika'); 
+
+    Route::get('/bill-export-pdf', BillExportPdfController::class)->name('bill.export.pdf'); 
 });
 
 require __DIR__.'/auth.php';
