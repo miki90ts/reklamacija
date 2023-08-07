@@ -10,6 +10,11 @@ const props = defineProps({
     bills: Object,
     query: Object,
     searchBills: Object,
+    stores: Object,
+    products: Object,
+    brands: Object,
+    categories: Object,
+    prices: Object,
 });
 
 function openImageInNewTab(imageUrl) {
@@ -23,71 +28,32 @@ const deleteBill = (bill) => {
     form.delete(route("racuni.destroy", bill));
 };
 
-const selectedProducts = reactive({});
-const selectedStores = reactive({});
+const categories = ref(props.categories);
+const brands = ref(props.brands);
+const products = ref(props.products);
+const stores = ref(props.stores);
 
-const categories = reactive([]);
-const brands = reactive([]);
-const products = reactive([]);
-const stores = reactive([]);
+const maxPrice = ref(Number(props.prices.max_price));
+const minPrice = ref(Number(props.prices.min_price));
+// const maxPrice = ref(1000000);
+// const minPrice = ref(0);
 
-const maxPrice = ref(0);
-const minPrice = ref(Number.MAX_VALUE);
-
-// Fill the categories, products, stores, and brands arrays with unique values from bills
-props.searchBills.data.forEach((bill) => {
-    const price = parseFloat(bill.price);
-    if (price > maxPrice.value) {
-        maxPrice.value = price;
-    }
-    if (price < minPrice.value) {
-        minPrice.value = price;
-    }
-    if (
-        !categories.some(
-            (category) => category.id === bill.product.brand.category.id
-        )
-    ) {
-        categories.push({
-            id: bill.product.brand.category.id,
-            title: bill.product.brand.category.title,
-        });
-    }
-
-    if (!brands.some((brand) => brand.id === bill.product.brand.id)) {
-        brands.push({
-            id: bill.product.brand.id,
-            title: bill.product.brand.title,
-        });
-    }
-
-    if (!products.some((product) => product.id === bill.product.id)) {
-        products.push({ id: bill.product.id, title: bill.product.title });
-    }
-
-    if (!stores.some((store) => store.id === bill.store.id)) {
-        stores.push({ id: bill.store.id, title: bill.store.title });
-    }
-});
-const isCategoryListOpen = ref(false);
+const isCategoryListOpen = ref(props.query.categories ?? false);
+const isBrandsListOpen = ref(props.query.brands ?? false);
+const isProductsListOpen = ref(props.query.products ?? false);
+const isStoresListOpen = ref(props.query.stores ?? false);
 
 const toggleCategoryList = () => {
     isCategoryListOpen.value = !isCategoryListOpen.value;
 };
 
-const isBrandsListOpen = ref(false);
-
 const toggleBrandsList = () => {
     isBrandsListOpen.value = !isBrandsListOpen.value;
 };
 
-const isProductsListOpen = ref(false);
-
 const toggleProductsList = () => {
     isProductsListOpen.value = !isProductsListOpen.value;
 };
-
-const isStoresListOpen = ref(false);
 
 const toggleStoresList = () => {
     isStoresListOpen.value = !isStoresListOpen.value;
@@ -99,21 +65,24 @@ const togglePriceList = () => {
     isPriceListOpen.value = !isPriceListOpen.value;
 };
 
-const Slidervalue = ref([0, maxPrice.value]);
+const Slidervalue = ref(
+    props.query.price
+        ? props.query.price.split(",").filter(Boolean).map(Number)
+        : [0, maxPrice.value]
+);
 
-const format = (value) => {
-    return `${value} RSD`;
-};
-
-const sliderMinValue = ref(minPrice.value);
-const sliderMaxValue = ref(maxPrice.value);
+const sliderMinValue = ref(
+    (props.query.price ?? "").split(",").filter(Boolean).map(Number)[0] ||
+        minPrice.value
+);
+const sliderMaxValue = ref(
+    (props.query.price ?? "").split(",").filter(Boolean).map(Number)[1] ||
+        maxPrice.value
+);
 
 const showSliderValues = (value) => {
     sliderMinValue.value = value[0];
     sliderMaxValue.value = value[1];
-};
-const test = (value) => {
-    console.log(value);
 };
 
 const selectedCategories = ref(
@@ -124,13 +93,27 @@ const selectedBrands = ref(
     (props.query.brands ?? "").split(",").filter(Boolean).map(Number) || []
 );
 
+const selectedProducts = ref(
+    (props.query.products ?? "").split(",").filter(Boolean).map(Number) || []
+);
+
+const selectedStores = ref(
+    (props.query.stores ?? "").split(",").filter(Boolean).map(Number) || []
+);
+
 const filterData = (type, value) => {
-    const query = { ...props.query }; // Make a copy of the existing query parameters
+    const query = { ...props.query };
 
     if (type === "categories") {
-        query.categories = value.join(","); // Update the 'categories' parameter with the selected categories
+        query.categories = value.join(",");
     } else if (type === "brands") {
-        query.brands = value.join(","); // Update the 'brands' parameter with the selected brands
+        query.brands = value.join(",");
+    } else if (type === "products") {
+        query.products = value.join(",");
+    } else if (type === "stores") {
+        query.stores = value.join(",");
+    } else if (type === "price") {
+        query.price = value.join(",");
     }
 
     router.visit("/racuni", {
@@ -145,6 +128,18 @@ const filterCategories = (e) => {
 
 const filterBrands = (e) => {
     filterData("brands", selectedBrands.value);
+};
+
+const filterProducts = (e) => {
+    filterData("products", selectedProducts.value);
+};
+
+const filterStores = (e) => {
+    filterData("stores", selectedStores.value);
+};
+
+const filterPrice = (value) => {
+    filterData("price", value);
 };
 </script>
 
@@ -189,28 +184,32 @@ const filterBrands = (e) => {
                                         isCategoryListOpen || query.categories
                                     "
                                 >
-                                    <div
-                                        v-for="category in categories"
-                                        :key="category.id"
-                                    >
+                                    <div v-if="isCategoryListOpen">
                                         <div
-                                            class="border-b border-gray-300 p-2"
+                                            v-for="category in categories"
+                                            :key="category.id"
                                         >
-                                            <label
-                                                class="flex items-center cursor-pointer"
+                                            <div
+                                                class="border-b border-gray-300 p-2"
                                             >
-                                                <input
-                                                    type="checkbox"
-                                                    :id="`category_${category.id}`"
-                                                    :value="category.id"
-                                                    v-model="selectedCategories"
-                                                    class="mr-2"
-                                                    v-on:change="
-                                                        filterCategories
-                                                    "
-                                                />
-                                                {{ category.title }}
-                                            </label>
+                                                <label
+                                                    class="flex items-center cursor-pointer"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        :id="`category_${category.id}`"
+                                                        :value="category.id"
+                                                        v-model="
+                                                            selectedCategories
+                                                        "
+                                                        class="mr-2"
+                                                        v-on:change="
+                                                            filterCategories
+                                                        "
+                                                    />
+                                                    {{ category.title }}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -234,26 +233,30 @@ const filterBrands = (e) => {
                                 </div>
 
                                 <div v-if="isBrandsListOpen || query.brands">
-                                    <div
-                                        v-for="brand in brands"
-                                        :key="brand.id"
-                                    >
+                                    <div v-if="isBrandsListOpen">
                                         <div
-                                            class="border-b border-gray-300 p-2"
+                                            v-for="brand in brands"
+                                            :key="brand.id"
                                         >
-                                            <label
-                                                class="flex items-center cursor-pointer"
+                                            <div
+                                                class="border-b border-gray-300 p-2"
                                             >
-                                                <input
-                                                    type="checkbox"
-                                                    :id="`brand_${brand.id}`"
-                                                    :value="brand.id"
-                                                    v-model="selectedBrands"
-                                                    class="mr-2"
-                                                    v-on:change="filterBrands"
-                                                />
-                                                {{ brand.title }}
-                                            </label>
+                                                <label
+                                                    class="flex items-center cursor-pointer"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        :id="`brand_${brand.id}`"
+                                                        :value="brand.id"
+                                                        v-model="selectedBrands"
+                                                        class="mr-2"
+                                                        v-on:change="
+                                                            filterBrands
+                                                        "
+                                                    />
+                                                    {{ brand.title }}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -265,7 +268,7 @@ const filterBrands = (e) => {
                                     @click="toggleProductsList"
                                 >
                                     <span class="text-lg font-bold"
-                                        >Proizvod</span
+                                        >Proizvodi</span
                                     >
                                     <i
                                         :class="{
@@ -278,26 +281,35 @@ const filterBrands = (e) => {
                                     ></i>
                                 </div>
 
-                                <div v-if="isProductsListOpen">
-                                    <div
-                                        v-for="product in products"
-                                        :key="product.id"
-                                    >
+                                <div
+                                    v-if="isProductsListOpen || query.products"
+                                >
+                                    <div v-if="isProductsListOpen">
                                         <div
-                                            class="border-b border-gray-300 p-2"
+                                            v-for="product in products"
+                                            :key="product.id"
                                         >
-                                            <label
-                                                class="flex items-center cursor-pointer"
+                                            <div
+                                                class="border-b border-gray-300 p-2"
                                             >
-                                                <input
-                                                    type="checkbox"
-                                                    :id="`product_${product.id}`"
-                                                    :value="product.id"
-                                                    v-model="selectedProducts"
-                                                    class="mr-2"
-                                                />
-                                                {{ product.title }}
-                                            </label>
+                                                <label
+                                                    class="flex items-center cursor-pointer"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        :id="`product_${product.id}`"
+                                                        :value="product.id"
+                                                        v-model="
+                                                            selectedProducts
+                                                        "
+                                                        class="mr-2"
+                                                        v-on:change="
+                                                            filterProducts
+                                                        "
+                                                    />
+                                                    {{ product.title }}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -322,26 +334,31 @@ const filterBrands = (e) => {
                                     ></i>
                                 </div>
 
-                                <div v-if="isStoresListOpen">
-                                    <div
-                                        v-for="store in stores"
-                                        :key="store.id"
-                                    >
+                                <div v-if="isStoresListOpen || query.stores">
+                                    <div v-if="isStoresListOpen">
                                         <div
-                                            class="border-b border-gray-300 p-2"
+                                            v-for="store in stores"
+                                            :key="store.id"
                                         >
-                                            <label
-                                                class="flex items-center cursor-pointer"
+                                            <div
+                                                class="border-b border-gray-300 p-2"
                                             >
-                                                <input
-                                                    type="checkbox"
-                                                    :id="`store_${store.id}`"
-                                                    :value="store.id"
-                                                    v-model="selectedStores"
-                                                    class="mr-2"
-                                                />
-                                                {{ store.title }}
-                                            </label>
+                                                <label
+                                                    class="flex items-center cursor-pointer"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        :id="`store_${store.id}`"
+                                                        :value="store.id"
+                                                        v-model="selectedStores"
+                                                        class="mr-2"
+                                                        v-on:change="
+                                                            filterStores
+                                                        "
+                                                    />
+                                                    {{ store.title }}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +381,7 @@ const filterBrands = (e) => {
                                     ></i>
                                 </div>
 
-                                <div v-if="isPriceListOpen">
+                                <div v-if="isPriceListOpen || query.price">
                                     <div
                                         class="flex justify-between px-2 text-gray-500"
                                     >
@@ -378,7 +395,7 @@ const filterBrands = (e) => {
                                             :min="minPrice"
                                             :max="maxPrice"
                                             @update="showSliderValues"
-                                            @change="test"
+                                            @change="filterPrice"
                                             :lazy="false"
                                             :tooltips="false"
                                         />
@@ -389,8 +406,6 @@ const filterBrands = (e) => {
                                             {{ sliderMaxValue }} RSD</span
                                         >
                                     </div>
-                                    {{}}
-                                    {{}}
                                 </div>
                             </div>
                         </div>

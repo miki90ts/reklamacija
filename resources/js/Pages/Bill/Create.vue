@@ -209,10 +209,7 @@ function setFilteredProducts(data) {
                                     </div>
 
                                     <div>
-                                        <InputLabel
-                                            for="photo"
-                                            value="Prodavnica"
-                                        />
+                                        <InputLabel for="photo" value="Slika" />
 
                                         <input
                                             type="file"
