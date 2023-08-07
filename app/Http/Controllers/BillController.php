@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -24,16 +25,70 @@ class BillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia()->render('Bill/Index', [
-           
+            'query' => (object) $request->query(),
+
             'bills' => BillResource::collection(
                 Bill::whereBelongsTo(auth()->user())
                     ->with(['store', 'product.brand.category','warrantyLength'])
+                    ->when($request->categories, function ($query) use ($request){
+                        $query->whereHas('product.brand.category', function ($query) use ($request) {
+                            $query->whereIn('categories.id', explode(',', $request->categories));
+                        });
+                    })
+                    ->when($request->brands, function ($query) use ($request){
+                        $query->whereHas('product.brand', function ($query) use ($request) {
+                            $query->whereIn('brands.id', explode(',', $request->brands));
+                        });
+                    })
+                    ->when($request->products, function ($query) use ($request){
+                        $query->whereHas('product', function ($query) use ($request) {
+                            $query->whereIn('products.id', explode(',', $request->products));
+                        });
+                    })
+                    ->when($request->stores, function ($query) use ($request){
+                        $query->whereHas('store', function ($query) use ($request) {
+                            $query->whereIn('stores.id', explode(',', $request->stores));
+                        });
+                    })
+                    ->when($request->price, function ($query) use ($request){
+                        $query->where('price', '>=', explode(',', $request->price)[0])
+                            ->where('price', '<=', explode(',', $request->price)[1]);
+                    })
                     ->oldest()
                     ->paginate(self::BILLS_PER_PAGE)
+                    ->appends($request->query())
             ),
+
+            'prices' => Bill::whereBelongsTo(auth()->user())
+                ->selectRaw('MAX(price) as max_price, MIN(price) as min_price')
+                ->first(),
+
+            'categories' => Category::whereHas('brands.products.bills.user', function ($query) {
+                $query->where('id', auth()->id());
+            })
+                ->distinct()
+                ->get(['id','title']),
+
+            'brands' => Brand::whereHas('products.bills.user', function ($query) {
+                $query->where('id', auth()->id());
+            })
+                ->distinct()
+                ->get(['id','title']),
+
+            'stores' => Store::whereHas('bills.user', function ($query) {
+                $query->where('id', auth()->id());
+            })
+                ->distinct()
+                ->get(['id','title']),
+
+            'products' => Product::whereHas('bills.user', function ($query) {
+                $query->where('id', auth()->id());
+            })
+                ->distinct()
+                ->get(['id','title']),
         ]);
     }
 

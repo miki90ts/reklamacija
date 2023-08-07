@@ -4,6 +4,7 @@ import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { useForm } from "@inertiajs/vue3";
 import { Head, Link } from "@inertiajs/vue3";
+import SvgIcon from "@/Components/SvgIcon.vue";
 
 defineProps({
     kategorije: {
@@ -82,9 +83,10 @@ const deleteCategory = (category) => {
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
                                                 >
-                                                    <span
-                                                        v-html="category.icon"
-                                                    ></span>
+                                                    <SvgIcon
+                                                        :name="category.icon"
+                                                        class="icon"
+                                                    />
                                                 </td>
                                                 <td
                                                     class="py-2 px-4 border-b text-center"
@@ -148,3 +150,11 @@ const deleteCategory = (category) => {
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style>
+.icon {
+    width: 20px;
+    height: 20px;
+    display: inline;
+}
+</style>
