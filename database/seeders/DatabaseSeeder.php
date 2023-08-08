@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             WarrantyLengthSeeder::class,
+            CategorySeeder::class,
             StoreSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();

@@ -13,7 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $category = [
+        $categories = [
             [
                 'title' => 'KLIMA UREĐAJI I OPREMA',
                 'icon' => 1,
@@ -61,7 +61,7 @@ class CategorySeeder extends Seeder
             [
                 'title' => 'UGRADNA TEHNIKA',
                 'icon' => 0,
-            ],
+            ]
         ];
 
         foreach ($categories as $category) {
