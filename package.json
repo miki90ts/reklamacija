@@ -14,12 +14,8 @@
         "laravel-vite-plugin": "^0.7.5",
         "postcss": "^8.4.18",
         "tailwindcss": "^3.2.1",
-<<<<<<< HEAD
-        "vite": "^4.4.8",
-=======
-        "vite": "^4.0.0",
+        "vite": "^4.4.9",
         "vite-svg-loader": "^4.0.0",
->>>>>>> e1c66f6798070a1481e7c5f9aaaf2bfc42d1b6a8
         "vue": "^3.2.41"
     },
     "dependencies": {
