@@ -91,7 +91,7 @@ function setFilteredProducts(data) {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-white leading-tight">
                 Unos računa
             </h2>
         </template>
