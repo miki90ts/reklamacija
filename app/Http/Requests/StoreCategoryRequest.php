@@ -23,7 +23,8 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'icon' => ['required']
+            'icon_name' => ['required'],
+            'icon' => ['required','mimes:svg'],
         ];
     }
 }

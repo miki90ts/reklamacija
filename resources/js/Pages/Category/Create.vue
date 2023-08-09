@@ -9,6 +9,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
     title: "",
+    icon_name: "",
     icon: "",
 });
 </script>
@@ -57,17 +58,38 @@ const form = useForm({
                                     <div>
                                         <InputLabel for="icon" value="Ikona" />
 
-                                        <TextInput
+                                        <input
+                                            type="file"
+                                            @input="
+                                                form.icon =
+                                                    $event.target.files[0]
+                                            "
+                                            accept="image/*"
                                             id="icon"
+                                        />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.icon"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="icon_name"
+                                            value="Ime ikone"
+                                        />
+
+                                        <TextInput
+                                            id="icon_name"
                                             type="text"
                                             class="mt-1 block w-full"
-                                            v-model="form.icon"
+                                            v-model="form.icon_name"
                                             required
                                         />
 
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.icon"
+                                            :message="form.errors.icon_name"
                                         />
                                     </div>
 

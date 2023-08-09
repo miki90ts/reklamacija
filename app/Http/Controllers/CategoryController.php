@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\{StoreCategoryRequest,UpdateCategoryRequest};
-use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -41,10 +42,19 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $category = Category::create($request->validated());
-
+        $validatedData = $request->validated();
+      
+        if (!Storage::exists('public/svg/' . $validatedData['icon_name'] . '.svg')) {
+            $validatedData['icon']->storeAs('public/svg', $validatedData['icon_name'] . '.svg');
+        }
+     
+        $category = Category::create([
+            'title' => $validatedData['title'],
+            'icon' => $validatedData['icon_name']
+        ]);
+        
         return redirect(route('kategorije'))->with('message', [
-            'body' => 'Prodavnica kreirana',
+            'body' => 'Kategorija kreirana',
             'type' => 'success'
         ]);
     }
@@ -72,7 +82,24 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->validated());
+        $validatedData = $request->validated();
+      
+        $iconName = $category->icon;
+      
+        if(array_key_exists('icon' ,$validatedData)){
+            if (Storage::exists('public/svg/' . $iconName . '.svg')) {
+                Storage::delete('public/svg/'. $iconName . '.svg');
+            }
+            
+            if (!Storage::exists('public/svg/' . $validatedData['icon_name'] . '.svg')) {
+                $validatedData['icon']->storeAs('public/svg', $validatedData['icon_name'] . '.svg');
+            }
+        }
+      
+        $category->update([
+            'title' => $validatedData['title'],
+            'icon' => $validatedData['icon_name']
+        ]);
 
         return redirect(route('kategorije'))->with('message', [
             'body' => 'Kategorija izmenjena',
@@ -85,6 +112,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if (Storage::exists('public/svg/' . $category->icon . '.svg')) {
+            Storage::delete('public/svg/'. $category->icon . '.svg');
+        }
+
         $category->delete();
 
         return redirect(route('kategorije'))->with('message', [

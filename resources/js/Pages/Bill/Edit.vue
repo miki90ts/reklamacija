@@ -7,13 +7,11 @@ import BackLink from "@/Components/BackLink.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, router } from "@inertiajs/vue3";
 
 import { ref, computed } from "vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-
-import { router } from "@inertiajs/vue3";
 
 function submit(bill) {
     router.post(route("racuni.update", bill), {

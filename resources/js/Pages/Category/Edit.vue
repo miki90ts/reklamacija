@@ -5,7 +5,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import BackLink from "@/Components/BackLink.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, router } from "@inertiajs/vue3";
 
 const props = defineProps({
     category: Object,
@@ -13,8 +13,17 @@ const props = defineProps({
 
 const form = useForm({
     title: props.category.data.title,
-    icon: props.category.data.icon,
+    icon_name: props.category.data.icon,
 });
+
+function submit(category) {
+    router.post(route("kategorije.update", category), {
+        _method: "patch",
+        title: form.title,
+        icon_name: form.icon_name,
+        icon: form.icon,
+    });
+}
 </script>
 
 <template>
@@ -34,14 +43,7 @@ const form = useForm({
                         <div class="container mx-auto">
                             <div class="overflow-x-auto">
                                 <form
-                                    @submit.prevent="
-                                        form.patch(
-                                            route(
-                                                'kategorije.update',
-                                                category.data
-                                            )
-                                        )
-                                    "
+                                    @submit.prevent="submit(category.data)"
                                     class="mt-6 space-y-6"
                                 >
                                     <div>
@@ -66,17 +68,38 @@ const form = useForm({
                                     <div>
                                         <InputLabel for="icon" value="Ikona" />
 
-                                        <TextInput
+                                        <input
+                                            type="file"
+                                            @input="
+                                                form.icon =
+                                                    $event.target.files[0]
+                                            "
+                                            accept="image/*"
                                             id="icon"
+                                        />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.icon"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            for="icon_name"
+                                            value="Ime ikone"
+                                        />
+
+                                        <TextInput
+                                            id="icon_name"
                                             type="text"
                                             class="mt-1 block w-full"
-                                            v-model="form.icon"
+                                            v-model="form.icon_name"
                                             required
                                         />
 
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.icon"
+                                            :message="form.errors.icon_name"
                                         />
                                     </div>
 

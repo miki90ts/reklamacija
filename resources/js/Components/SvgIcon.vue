@@ -9,10 +9,18 @@ const props = defineProps({
 });
 
 const icon = defineAsyncComponent(() =>
-    import(`../../../public/assets/svg/${props.name}.svg`)
+    import(`../../../public/storage/svg/${props.name}.svg`)
 );
 </script>
 
 <template>
-    <component :is="icon" />
+    <component :is="icon" class="icon" />
 </template>
+
+<style scoped>
+.icon {
+    width: 20px;
+    height: 20px;
+    display: inline;
+}
+</style>

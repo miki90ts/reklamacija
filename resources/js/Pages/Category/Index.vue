@@ -85,7 +85,6 @@ const deleteCategory = (category) => {
                                                 >
                                                     <SvgIcon
                                                         :name="category.icon"
-                                                        class="icon"
                                                     />
                                                 </td>
                                                 <td
@@ -150,11 +149,3 @@ const deleteCategory = (category) => {
         </div>
     </AuthenticatedLayout>
 </template>
-
-<style>
-.icon {
-    width: 20px;
-    height: 20px;
-    display: inline;
-}
-</style>
