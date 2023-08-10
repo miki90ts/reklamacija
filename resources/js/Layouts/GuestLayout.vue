@@ -20,5 +20,5 @@ import Footer from "@/Components/Footer.vue";
             <slot />
         </div>
     </div>
+    <Footer />
 </template>
-<Footer />
